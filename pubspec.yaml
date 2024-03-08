@@ -28,16 +28,23 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  fluentui_system_icons: ^1.1.225
+  expandable_text: ^2.3.0
   flutter:
     sdk: flutter
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  google_nav_bar: ^5.0.6
-  readmore: ^2.2.0
+  flutter_bloc: ^8.1.4
+  flutter_image_slideshow: ^0.1.6
+  flutter_social_button: ^1.1.4+1
+  google_fonts: ^6.1.0
+  page_transition: ^2.1.0
+  shared_preferences: ^2.2.2
   video_player: ^2.8.2
+  jwt_decoder: ^2.0.1
+  http: ^1.2.1
+
 
 
 dev_dependencies:
@@ -67,7 +74,6 @@ flutter:
      - images/
      - images/movie_images/
      - images/icons/
-     - images/genres_images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
