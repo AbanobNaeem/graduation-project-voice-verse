@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
+import 'package:voice_verse/common/app_component/custom_back_button.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
 import 'package:voice_verse/common/app_component/custom_social_media_button.dart';
 import 'package:voice_verse/common/app_component/custom_text_form_field.dart';
 import 'package:voice_verse/common/app_component/custom_toggle_button.dart';
-import 'package:voice_verse/shared/show_alert_dialog.dart';
+import 'package:voice_verse/shared/snack_bar.dart';
 import 'package:voice_verse/user_authentication/register/cubit/register_cubit.dart';
 
 
@@ -28,7 +30,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   late bool obscure = true;
 
+  late bool _buttonEnabled = false;
+
   final cubit = RegisterCubit();
+
+  final _formKey = GlobalKey<FormState>();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,177 +45,194 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: BlocListener<RegisterCubit, RegisterStates>(
         listener: (context, state) {
           if (state is RegisterSuccessState) {
-            showAlertDialog(context,
-                title: "Success",
-                content: "Please check your email and make it active ",
-                actions: [
-                  CustomButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    text: "Close",
-                    textColor: primaryColorDark,
-                    outLine: true,
-
-                  )
-                ]
-            );
+            CustomSnackBar.showSuccess(context,
+                message: "Activate your email now to access all features!",
+                title: "Register Success");
+                Navigator.pop(context);
           }
           else if (state is RegisterFailureState){
-            showAlertDialog(context,
-                title:  "Register failed",
-                content: state.errorMessage,
-                actions: [
-                  TextButton(
-                      onPressed: (){
-                        Navigator.pop(context);
-                      },
-                      child: const Text("Close",
-                        style: TextStyle(
-                            color: primaryColorDark,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600
-                        ),
-                      ))
-                ]
-            );
+            CustomSnackBar.showError(context,
+                message: state.errorMessage,
+                title: "Register Failed");
           }
         },
         child: Scaffold(
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 20, left: 15, right: 15),
-              child: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          width: 45,
-                          height: 45,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: secondColorDark,
-                                  width: 1.5
-                              ),
-                              borderRadius: BorderRadius.circular(15)
-                          ),
-                          child: IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(
-                                Icons.arrow_back_ios_rounded,
-                                color: Colors.white70,
-                              )),
-                        ),
-                        const SizedBox(width: 15,),
-                        const Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 30,
-                          ),
-                        ),
-                      ],
-                    ),
-                    CustomSocialButton(
-                        loginMassage: false,
-                        topPadding: 15,
-                        onApplePressed: () {},
-                        onGmailPressed: () {}),
-                    const Row(
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            color: secondColorDark,
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Text(
-                          "Or With",
-                          style: TextStyle(
-                            color: Colors.white60,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 15,
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Divider(
-                            color: secondColorDark,
-                          ),
-                        ),
-                      ],
-                    ),
-                    CustomTextFormField(
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.name,
-                      controller: nameController,
-                      topPadding: 10,
-                      label: "Name",
-                      hintText: " Enter your name",
-                      suffixIcon: const Icon(Icons.person_rounded),
-                    ),
-                    CustomTextFormField(
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                      controller: emailController,
-                      topPadding: 10,
-                      label: "Email",
-                      hintText: " Enter your email",
-                      suffixIcon: const Icon(Icons.email_rounded),
-                    ),
-                    CustomTextFormField(
-                        keyboardType: TextInputType.visiblePassword,
-                        textInputAction: TextInputAction.next,
-                        controller: passwordController,
-                        topPadding: 10,
-                        label: "Password",
-                        hintText: " Enter your password",
-                        suffixIcon: const Icon(Icons.lock_rounded),
-                        obscureText: true
-                    ),
-                    CustomTextFormField(
-                      keyboardType: TextInputType.visiblePassword,
-                      textInputAction: TextInputAction.done,
-                      controller: confirmPasswordController,
-                      topPadding: 10,
-                      label: "Confirm password",
-                      hintText: " Rewrite your password",
-                      obscureText: obscure,
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            obscure = !obscure;
-                          });
+          body: Padding(
+            padding:  EdgeInsets.only(left:  3.w,right: 3.w, top: 1.h),
+            child: SafeArea(
+              child: Form(
+                key: _formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const CustomBackButton(title: "Sign Up"),
+                      SizedBox(height: 1.h,),
+                      CustomSocialButton(
+                          loginMessage: false,
+                          onApplePressed: () {},
+                          onGmailPressed: () {}),
+                      CustomTextFormField(
+                        onChanged: (value){
+                          _checkButtonEnabled();
                         },
-                        icon: obscure == true ?
-                        const Icon(Icons.visibility_rounded) :
-                        const Icon(Icons.visibility_off_rounded),
+                        validator:(value) {
+                          if (value.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                          if (value.length > 50) {
+                            return 'Name must not exceed 50 characters';
+                          }
+                          return null; // Return null if the input is valid
+                        },
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.name,
+                        controller: nameController,
+                        label: "Name",
+                        hintText: " Enter your name",
+                        suffixIcon: const Icon(Icons.person_rounded),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    BlocBuilder<RegisterCubit, RegisterStates>(
-                      builder: (context, state) {
-                        return CustomButton(
-                          isLoading: state is RegisterLoadingState ? true: false,
-                          onPressed: () {
-                            register();
+                      SizedBox(height: 1.h,),
+                      CustomTextFormField(
+                        onChanged: (value){
+                          _checkButtonEnabled();
+                        },
+                        validator: (value) {
+
+                          if (!value.endsWith('.com') && !value.endsWith('.net') && !value.endsWith('.org')) {
+                            return 'Please enter a valid domain (.com, .net, .org)';
+                          }
+                  
+                          return null;
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
+                        controller: emailController,
+                        label: "Email",
+                        hintText: " Enter your email",
+                        suffixIcon: const Icon(Icons.email_rounded),
+                      ),
+                      SizedBox(height: 1.h,),
+                      CustomTextFormField(
+                          onChanged: (value){
+                            _checkButtonEnabled();
                           },
-                          text: "Sign Up",
-                        );
-                      },
-                    ),
-                    CustomTextAndButton(
+                          validator: (value) {
+                  
+                            // Check if the password meets the minimum length requirement
+                            if (value.length < 8) {
+                              return 'Password must be at least 8 characters long';
+                            }
+                  
+                            // Check if the password contains at least one uppercase letter
+                            if (!value.contains(RegExp(r'[A-Z]'))) {
+                              return 'Password must contain at least one uppercase letter';
+                            }
+                  
+                            // Check if the password contains at least one lowercase letter
+                            if (!value.contains(RegExp(r'[a-z]'))) {
+                              return 'Password must contain at least one lowercase letter';
+                            }
+                  
+                            // Check if the password contains at least one digit
+                            if (!value.contains(RegExp(r'[0-9]'))) {
+                              return 'Password must contain at least one digit';
+                            }
+                  
+                            // Check if the password contains at least one special character
+                            if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                              return 'Password must contain at least one special character';
+                            }
+                  
+                            return null;
+                          },
+                          keyboardType: TextInputType.visiblePassword,
+                          textInputAction: TextInputAction.next,
+                          controller: passwordController,
+                          label: "Password",
+                          hintText: " Enter your password",
+                          suffixIcon: const Icon(Icons.lock_rounded),
+                          obscureText: obscure
+                      ),
+                      SizedBox(height: 1.h,),
+                      CustomTextFormField(
+                        onChanged: (value){
+                          _checkButtonEnabled();
+                        },
+                        validator: (value) {
+                          if (value != passwordController.text) {
+                            return 'Passwords do not match';
+                          }
+                          // Check if the password meets the minimum length requirement
+                          if (value.length < 8) {
+                            return 'Password must be at least 8 characters long';
+                          }
+                  
+                          // Check if the password contains at least one uppercase letter
+                          if (!value.contains(RegExp(r'[A-Z]'))) {
+                            return 'Password must contain at least one uppercase letter';
+                          }
+                  
+                          // Check if the password contains at least one lowercase letter
+                          if (!value.contains(RegExp(r'[a-z]'))) {
+                            return 'Password must contain at least one lowercase letter';
+                          }
+                  
+                          // Check if the password contains at least one digit
+                          if (!value.contains(RegExp(r'[0-9]'))) {
+                            return 'Password must contain at least one digit';
+                          }
+                  
+                          // Check if the password contains at least one special character
+                          if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                            return 'Password must contain at least one special character';
+                          }
+                  
+                          return null;
+                        },
+                        keyboardType: TextInputType.visiblePassword,
+                        textInputAction: TextInputAction.done,
+                        controller: confirmPasswordController,
+                        label: "Confirm password",
+                        hintText: " Rewrite your password",
+                        obscureText: obscure,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              obscure = !obscure;
+                            });
+                          },
+                          icon: obscure == true ?
+                          const Icon(Icons.visibility_rounded) :
+                          const Icon(Icons.visibility_off_rounded),
+                        ),
+                      ),
+                      SizedBox(height:2.h,),
+                      BlocBuilder<RegisterCubit, RegisterStates>(
+                        builder: (context, state) {
+                          return CustomButton(
+                            backGroundColor:_buttonEnabled ? primaryColorDark: secondColorDark ,
+                            isLoading: state is RegisterLoadingState ? true: false,
+                            onPressed: _buttonEnabled ? () {
+                              if(_formKey.currentState!.validate()){
+                                register() ;
+                              }
+                            }: null,
+                            text: "Sign Up",
+                          );
+                        },
+                      ),
+                      CustomTextAndButton(
                         moveToLogin: true,
                         onPressed: () {
                           Navigator.pop(context);
-                        })
+                        },
+                      ),
 
-                  ],
+
+                  
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -222,10 +247,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    emailController.clear() ;
+    passwordController.clear() ;
+    nameController.clear() ;
+    confirmPasswordController.clear() ;
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
     nameController.dispose();
+
   }
 
   void register() {
@@ -240,4 +270,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         confirmPassword: confirmPassword
     );
   }
+
+
+  void _checkButtonEnabled() {
+    setState(() {
+      _buttonEnabled = emailController.text.isNotEmpty &&
+          passwordController.text.isNotEmpty &&
+          nameController.text.isNotEmpty &&
+          confirmPasswordController.text.isNotEmpty;
+    });
+  }
 }
+

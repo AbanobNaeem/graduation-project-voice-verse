@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animated_loadingkit/flutter_animated_loadingkit.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 
 
@@ -23,7 +25,7 @@ class CustomButton extends StatelessWidget {
     this.backGroundColor = primaryColorDark,
     this.textColor = Colors.white,
     this.buttonRadius = 15,
-    this.buttonHeight  =60,
+    this.buttonHeight  = 8,
     this.outLine = false,
     this.isLoading= false,
     this.outlineColor = primaryColorDark ,
@@ -34,8 +36,8 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: buttonWidth,
-        height: buttonHeight,
+        width: buttonWidth.w,
+        height: buttonHeight.h,
         decoration: outLine == false ?
         BoxDecoration(
           color: backGroundColor,
@@ -45,7 +47,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(buttonRadius),
           border: Border.all(
             color: outlineColor ,
-            width: 1.5,
+            width: 0.3.w,
           ),
         ),
         child: TextButton(
@@ -55,9 +57,9 @@ class CustomButton extends StatelessWidget {
             style: TextStyle(
               color: textColor,
               fontWeight: FontWeight.w600,
-              fontSize: 20,
+              fontSize: 17.5.sp,
             ),
-          ) : const CircularProgressIndicator(color: Colors.white,),
+          ) : const AnimatedLoadingWavingLine(color: Colors.white,),
         )
       )
     );

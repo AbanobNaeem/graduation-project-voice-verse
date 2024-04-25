@@ -18,13 +18,14 @@ class RegisterCubit extends Cubit<RegisterStates> {
     emit(RegisterLoadingState());
     try {
       final response = await httpConsumer.post(
+        headers: {"Content-Type": "application/json"},
         data: {
           "userName": userName,
           "email": email,
           "password": password,
           "cPassword": confirmPassword
         },
-        baseUrl: EndPoint.baseUrl + EndPoint.register,
+        baseUrl:EndPoint.register,
       );
       if (response.statusCode == 200) {
         emit(RegisterSuccessState());

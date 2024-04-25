@@ -18,11 +18,12 @@ class LoginCubit extends Cubit<LoginStates> {
     emit(LoginLoadingState());
     try {
       final response = await httpConsumer.post(
+        headers: {"Content-Type": "application/json"},
         data: {
           "email": email,
           "password": password,
         },
-        baseUrl: EndPoint.baseUrl + EndPoint.login,
+        baseUrl: EndPoint.login,
       );
       if (response.statusCode == 200) {
         await _saveUserData(httpConsumer.parsResponse(response));

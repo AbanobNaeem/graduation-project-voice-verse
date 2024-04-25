@@ -1,101 +1,125 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 
 class CustomSocialButton extends StatelessWidget {
-
   final VoidCallback onApplePressed;
   final VoidCallback onGmailPressed;
-  final double topPadding;
-  final bool loginMassage ;
+  final bool loginMessage;
+
   const CustomSocialButton({
     required this.onApplePressed,
     required this.onGmailPressed,
-    this.loginMassage =true,
-    this.topPadding = 30
-
+    this.loginMessage = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding:  EdgeInsets.only(bottom: 10, top: topPadding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            loginMassage == true ?
-            "Log in with one of the following options.":
-            "Sign Up with one of the following options.",
-            style: const TextStyle(
-              color: Colors.white60,
-              fontWeight: FontWeight.w600,
-              fontSize: 15,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          loginMessage
+              ? "Log in with one of the following options."
+              : "Sign Up with one of the following options.",
+          style: TextStyle(
+            color: Colors.white60,
+            fontWeight: FontWeight.w600,
+            fontSize: 15.sp,
+          ),
+        ),
+        SizedBox(height: 2.h),
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: 8.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
+                    color: secondColorDark,
+                    width: 0.5.w,
+                  ),
+                ),
+                child: TextButton.icon(
+                  onPressed: onApplePressed,
+                  icon: Icon(
+                    FontAwesomeIcons.apple,
+                    color: Colors.white70,
+                    size: 21.sp,
+                  ),
+                  label: Text(
+                    "Apple",
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
             ),
-          ),
-          const SizedBox(height: 20,),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 65,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(
-                      color: secondColorDark,
-                      width: 1.5,
-                    ),
+            SizedBox(width: 2.w),
+            Expanded(
+              child: Container(
+                height: 8.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
+                    color: secondColorDark,
+                    width: 0.5.w,
                   ),
-                  child: TextButton.icon(
-                    onPressed: onApplePressed,
-                    icon: const Icon(
-                      FontAwesomeIcons.apple,
+                ),
+                child: TextButton.icon(
+                  onPressed: onGmailPressed,
+                  icon: Icon(
+                    FontAwesomeIcons.google,
+                    color: Colors.white70,
+                    size: 21.sp,
+                  ),
+                  label: Text(
+                    "Gmail",
+                    style: TextStyle(
                       color: Colors.white70,
-                    ),
-                    label: const Text(
-                      "Apple",
-                      style:  TextStyle(
-                        color: Colors.white70,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(width:10,),
-              Expanded(
-                child: Container(
-                  height: 65,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(
-                      color: secondColorDark,
-                      width: 1.5,
-                    ),
-                  ),
-                  child: TextButton.icon(
-                    onPressed: onGmailPressed,
-                    icon: const Icon(
-                      FontAwesomeIcons.google,
-                      color: Colors.white70,
-                    ),
-                    label: const Text(
-                      "Gmail",
-                      style:  TextStyle(
-                        color: Colors.white70,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
+            ),
+          ],
+        ),
+        SizedBox(height: 2.h),
+        Row(
+          children: [
+            Expanded(
+              child: Divider(
+                color: secondColorDark,
+                thickness: 0.2.h,
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+            SizedBox(width: 2.w),
+            Text(
+              "Or With",
+              style: TextStyle(
+                color: Colors.white60,
+                fontWeight: FontWeight.w400,
+                fontSize: 15.sp,
+              ),
+            ),
+            SizedBox(width: 2.w),
+            Expanded(
+              child: Divider(
+                color: secondColorDark,
+                thickness: 0.2.h,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

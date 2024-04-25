@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:voice_verse/common/app_colors/colors.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:voice_verse/data_source/core/API/end_points.dart';
 import 'package:voice_verse/data_source/local/preference_utils.dart';
 import 'package:voice_verse/navigation_bar/navigation_bar.dart';
@@ -31,17 +32,17 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     _controller.forward();
 
-    Future.delayed( Duration(milliseconds: 2500), () {
+    Future.delayed( const Duration(milliseconds: 2000), () {
       final token = PreferenceUtils.instance.getString(ApiKey.token) ;
       if( token != null){
         navigatAndReplace(context,
-            screen: BottomNavigationBarWidget(token:token));
+            screen: BottomNavigationBarWidget());
       }
       else{
         navigatAndReplace(context,
             screen: const LoginScreen());
       }
-    });
+     });
   }
 
   @override
@@ -54,16 +55,16 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          color: backGroundColorDark,
-        ),
-        child: Center(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(15),
           child: FadeTransition(
             opacity: _animation,
-            child: Image.asset(
-              "images/finale logo.png",
-              width: 350,
+            child: Center(
+              child: Image.asset(
+                "images/logo.png",
+                width: 70.sp,
+              ),
             ),
           ),
         ),

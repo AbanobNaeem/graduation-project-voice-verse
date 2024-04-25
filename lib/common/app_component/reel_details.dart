@@ -1,70 +1,66 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ReelDetails extends StatelessWidget {
-  const ReelDetails({super.key});
+  ReelDetails({
+    Key? key,
+    required this.userImage,
+    required this.userName ,
+    required this.description
+  }) : super(key: key);
+  final String userImage;
+  final String userName ;
+  final String description ;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        ListTile(
-          dense: true,
-          minLeadingWidth: 0,
-          horizontalTitleGap: 12,
-          title: Text(
-            "Mohamed ahmed",
-            style: TextStyle(
-              color: Colors.white70,
-              fontWeight: FontWeight.w600,
-              fontSize: 15
-            ),
-          ),
-          leading: CircleAvatar(
-            radius: 18,
-            backgroundImage:AssetImage(
-              "images/user_imagejpg.jpg"
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 14),
-          child: ExpandableText(
-            'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.',
-            style: TextStyle(
-                  fontSize: 15,
+    return  Padding(
+      padding: EdgeInsets.only(bottom: 1.h),
+      child:  Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListTile(
+            dense: true,
+            minLeadingWidth: 0,
+            horizontalTitleGap: 3.w,
+            title: Text(
+               userName,
+              style: TextStyle(
                 color: Colors.white70,
-                fontWeight: FontWeight.w500
+                fontWeight: FontWeight.w600,
+                fontSize: 16.sp
               ),
-              expandText: "more",
-              collapseText: "less",
-              expandOnTextTap: true,
-              collapseOnTextTap: true,
-              maxLines: 1,
-              linkColor: Colors.white38,
-              linkEllipsis: false,
-              linkStyle: TextStyle(
-                fontWeight: FontWeight.w800,
-              ),
-          ),
-        ),
-        ListTile(
-          dense: true,
-          minLeadingWidth: 0,
-          horizontalTitleGap: 5,
-          title: Text(
-            "music title - original music",
-            style: TextStyle(
-                color: Colors.white54,
-                fontWeight: FontWeight.w600
+            ),
+            leading: CircleAvatar(
+              radius: 17.5.sp,
+              backgroundImage: NetworkImage(userImage),
             ),
           ),
-          leading: Icon(Icons.graphic_eq_outlined,
-            size: 16,
-            color: Colors.white54,
-          )
-        ),
-      ],
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 3.5.w),
+            child: ExpandableText(
+               description,
+              style: TextStyle(
+                    fontSize: 15.sp,
+                  color: Colors.white70,
+                  fontWeight: FontWeight.w500
+                ),
+                expandText: "more",
+                collapseText: "less",
+                expandOnTextTap: true,
+                collapseOnTextTap: true,
+                maxLines: 1,
+                linkColor: Colors.white38,
+                linkEllipsis: false,
+                linkStyle: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 15.sp
+                ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
