@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/custom_back_button.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
@@ -28,7 +28,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final TextEditingController confirmPasswordController = TextEditingController();
 
-  late bool obscure = true;
+  late bool cObscure = true;
+  late bool pObscure = true ;
 
   late bool _buttonEnabled = false;
 
@@ -58,7 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         },
         child: Scaffold(
           body: Padding(
-            padding:  EdgeInsets.only(left:  3.w,right: 3.w, top: 1.h),
+            padding:  EdgeInsets.only(left:  10.w,right: 10.w, top: 10.h),
             child: SafeArea(
               child: Form(
                 key: _formKey,
@@ -66,8 +67,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CustomBackButton(title: "Sign Up"),
-                      SizedBox(height: 1.h,),
+                      CustomBackButton(
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
+                          title: "Sign Up"),
+                      SizedBox(height: 10.h,),
                       CustomSocialButton(
                           loginMessage: false,
                           onApplePressed: () {},
@@ -92,7 +97,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         hintText: " Enter your name",
                         suffixIcon: const Icon(Icons.person_rounded),
                       ),
-                      SizedBox(height: 1.h,),
                       CustomTextFormField(
                         onChanged: (value){
                           _checkButtonEnabled();
@@ -112,7 +116,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         hintText: " Enter your email",
                         suffixIcon: const Icon(Icons.email_rounded),
                       ),
-                      SizedBox(height: 1.h,),
                       CustomTextFormField(
                           onChanged: (value){
                             _checkButtonEnabled();
@@ -151,10 +154,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: passwordController,
                           label: "Password",
                           hintText: " Enter your password",
-                          suffixIcon: const Icon(Icons.lock_rounded),
-                          obscureText: obscure
+                          suffixIcon: IconButton(onPressed: (){
+                            setState(() {
+                              pObscure =! pObscure ;
+                            });
+                          }, icon:pObscure == true ?
+                          const Icon(Icons.visibility_rounded) :
+                          const Icon(Icons.visibility_off_rounded),),
+                          obscureText: pObscure
                       ),
-                      SizedBox(height: 1.h,),
                       CustomTextFormField(
                         onChanged: (value){
                           _checkButtonEnabled();
@@ -195,19 +203,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         controller: confirmPasswordController,
                         label: "Confirm password",
                         hintText: " Rewrite your password",
-                        obscureText: obscure,
+                        obscureText: cObscure,
                         suffixIcon: IconButton(
                           onPressed: () {
                             setState(() {
-                              obscure = !obscure;
+                              cObscure = !cObscure;
                             });
                           },
-                          icon: obscure == true ?
+                          icon: cObscure == true ?
                           const Icon(Icons.visibility_rounded) :
                           const Icon(Icons.visibility_off_rounded),
                         ),
                       ),
-                      SizedBox(height:2.h,),
+                      SizedBox(height:10.h,),
                       BlocBuilder<RegisterCubit, RegisterStates>(
                         builder: (context, state) {
                           return CustomButton(

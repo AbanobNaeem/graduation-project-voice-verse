@@ -6,9 +6,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_animated_loadingkit/flutter_animated_loadingkit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:like_button/like_button.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:smooth_video_progress/smooth_video_progress.dart';
 import 'package:video_player/video_player.dart';
@@ -38,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0; // Track the current video index
   double _seekPosition = 0.0;
   double? _progress;
+  PageController _pageController = PageController();
 
   @override
   void initState() {
@@ -52,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       controller.dispose();
     });
     _timer.cancel();
+    _pageController.dispose();
   }
 
   void _showControlsForFiveSeconds() {
@@ -83,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
         _showControlsForFiveSeconds();
       },
       child: BlocProvider(
-            create: (_) => cubit,
+        create: (context) => cubit,
         child: BlocConsumer<HomeScreenCubit, HomeScreenStates>(
           listener: (context, state) {
             if (state is GetVideosSuccessState) {
@@ -91,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 videoData = state.reel;
                 _videoControllers = List.generate(
                   videoData!.results!.length,
-                  (index) => VideoPlayerController.network(
+                      (index) => VideoPlayerController.network(
                       videoData!.results![index].url!),
                 );
                 for (var controller in _videoControllers) {
@@ -119,24 +122,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   "Reels",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 21.sp,
+                    fontSize: 23.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 actions: [
                   Padding(
-                    padding: EdgeInsets.only(right: 16),
+                    padding: EdgeInsets.only(right: 5.w),
                     child: PopupMenuButton<String>(
                       itemBuilder: (BuildContext context) {
                         return [
-                          const PopupMenuItem<String>(
+                          PopupMenuItem<String>(
                             value: 'camera',
                             child: Row(
                               children: [
-                                Icon(Icons.camera_alt_rounded,
+                                const Icon(Icons.camera_alt_rounded,
                                     color: Colors.white),
-                                SizedBox(width: 8),
-                                Text(
+                                SizedBox(width: 5.w),
+                                const Text(
                                   'Camera',
                                   style: TextStyle(
                                     color: Colors.white,
@@ -146,13 +149,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             ),
                           ),
-                          const PopupMenuItem<String>(
+                          PopupMenuItem<String>(
                             value: 'gallery',
                             child: Row(
                               children: [
-                                Icon(Icons.video_library, color: Colors.white),
-                                SizedBox(width: 8),
-                                Text(
+                                const Icon(Icons.video_library,
+                                    color: Colors.white),
+                                SizedBox(width: 5.w),
+                                const Text(
                                   'Gallery',
                                   style: TextStyle(
                                     color: Colors.white,
@@ -171,10 +175,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           pickVideoFromGallery(context);
                         }
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.camera_alt_rounded,
                         color: Colors.white,
-                        size: 21,
+                        size: 23.sp,
                       ),
                       offset: const Offset(0, 0),
                       shape: RoundedRectangleBorder(
@@ -202,6 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     } else {
       return PageView.builder(
+        controller: _pageController,
         itemCount: videoData!.results!.length,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
@@ -222,34 +227,34 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               _videoLoading[index]
                   ? const Center(
-                      child: AnimatedLoadingWavingLine(color: Colors.white),
-                    )
+                child: AnimatedLoadingWavingLine(color: Colors.white),
+              )
                   : const SizedBox.shrink(),
               _showControls
                   ? Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.6),
-                            shape: BoxShape.circle),
-                        child: IconButton(
-                          iconSize: 26.sp,
-                          icon: Icon(
-                            controller.value.isPlaying
-                                ? Icons.pause
-                                : Icons.play_arrow,
-                            color: Colors.white60,
-                          ),
-                          onPressed: () {
-                            if (controller.value.isPlaying) {
-                              controller.pause();
-                            } else {
-                              controller.play();
-                            }
-                            _showControlsForFiveSeconds();
-                          },
-                        ),
-                      ),
-                    )
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.6),
+                      shape: BoxShape.circle),
+                  child: IconButton(
+                    iconSize: 35.sp,
+                    icon: Icon(
+                      controller.value.isPlaying
+                          ? Icons.pause
+                          : Icons.play_arrow,
+                      color: Colors.white60,
+                    ),
+                    onPressed: () {
+                      if (controller.value.isPlaying) {
+                        controller.pause();
+                      } else {
+                        controller.play();
+                      }
+                      _showControlsForFiveSeconds();
+                    },
+                  ),
+                ),
+              )
                   : const SizedBox.shrink(),
               Container(
                 decoration: BoxDecoration(
@@ -284,11 +289,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       Flexible(
                         flex: 12,
                         child: ReelDetails(
-                            userImage: videoData!.results![index].user?.profileImage!.url ??"",
+                            userImage: videoData!
+                                .results![index].user?.profileImage!.url ??
+                                "",
                             userName:
-                                videoData!.results![index].user?.userName ?? "",
+                            videoData!.results![index].user?.userName ?? "",
                             description:
-                                videoData!.results![index].description ?? ""),
+                            videoData!.results![index].description ?? ""),
                       ),
                       Flexible(
                         flex: 2,
@@ -317,8 +324,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                               likeBuilder: (bool isLiked) {
                                 return FutureBuilder<bool>(
-                                  future: _getFavoriteStatus(
-                                      videoData!.results![index].url!),
+                                  future: _getFavoriteStatus(videoData!.results![index].url!),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       return Icon(
@@ -326,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: isLiked || snapshot.data!
                                             ? Colors.red
                                             : Colors.white,
-                                        size: 25.sp,
+                                        size: 35.sp,
                                       );
                                     } else {
                                       return const CircularProgressIndicator(); // Placeholder until data is loaded
@@ -335,41 +341,45 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
                               },
                             ),
-                            SizedBox(height: 3.h),
+                            SizedBox(height: 20.h),
                             _progress != null
-                                ? SizedBox(
-                                    width: 6.w,
-                                    height: 3.h,
-                                    child: const CircularProgressIndicator(
-                                      color: Colors.white,
-                                    ))
+                                ? Padding(
+                              padding: EdgeInsets.only(
+                                  top: 10.h, bottom: 15.h),
+                              child: SizedBox(
+                                  width: 30.w,
+                                  height: 25.h,
+                                  child: const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )),
+                            )
                                 : IconButton(
-                                    onPressed: () {
-                                      FileDownloader.downloadFile(
-                                          url: videoData!.results![index].url!,
-                                          onProgress: (name, progress) {
-                                            setState(() {
-                                              _progress = progress;
-                                            });
-                                          },
-                                          onDownloadCompleted: (value) {
-                                            setState(() {
-                                              _progress = null;
-                                            });
-                                          });
+                              onPressed: () {
+                                FileDownloader.downloadFile(
+                                    url: videoData!.results![index].url!,
+                                    onProgress: (name, progress) {
+                                      setState(() {
+                                        _progress = progress;
+                                      });
                                     },
-                                    icon: const Icon(
-                                      Icons.download_rounded,
-                                      color: Colors.white,
-                                    ),
-                                    iconSize: 25.sp,
-                                  ),
-                            SizedBox(height: 2.h),
+                                    onDownloadCompleted: (value) {
+                                      setState(() {
+                                        _progress = null;
+                                      });
+                                    });
+                              },
+                              icon: const Icon(
+                                Icons.download_rounded,
+                                color: Colors.white,
+                              ),
+                              iconSize: 40.sp,
+                            ),
+                            SizedBox(height: 5.h),
                             IconButton(
                               onPressed: () async {
                                 // Get the video URL from your API response
                                 final videoUrl =
-                                    videoData!.results![index].url!;
+                                videoData!.results![index].url!;
                                 if (videoUrl.isNotEmpty) {
                                   await Share.share(videoUrl);
                                 } else {
@@ -378,19 +388,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                 }
                               },
                               icon: const Icon(
-                                Icons.share_rounded,
+                                FontAwesomeIcons.share,
                                 color: Colors.white,
                               ),
-                              iconSize: 23.sp,
+                              iconSize: 30.sp,
                             ),
-                            SizedBox(height: 3.h),
+                            SizedBox(height: 15.h),
                             Container(
-                              height: 5.h,
-                              width: 10.w,
+                              height: 30.h,
+                              width: 35.w,
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: Colors.white,
-                                  width: 0.3.w,
+                                  width: 1.w,
                                 ),
                                 borderRadius: BorderRadius.circular(6),
                                 image: DecorationImage(
@@ -398,11 +408,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   image: getProfileImageUrl() != null
                                       ? NetworkImage(getProfileImageUrl()!)
                                       : const AssetImage("images/logo.png")
-                                          as ImageProvider<Object>,
+                                  as ImageProvider<Object>,
                                 ),
                               ),
                             ),
-                            SizedBox(height: 2.h),
+                            SizedBox(height: 10.h),
                           ],
                         ),
                       ),
@@ -422,7 +432,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           thumbShape: RoundSliderThumbShape(
                               enabledThumbRadius: isPaused ? 3 : 1),
                           overlayShape:
-                              SliderComponentShape.noOverlay, // Remove padding
+                          SliderComponentShape.noOverlay, // Remove padding
                         ),
                         child: Slider(
                           value: progress.inMilliseconds.toDouble(),
@@ -450,6 +460,9 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             _currentIndex = index;
           });
+          _videoControllers[_currentIndex].play();
+          _videoControllers[_currentIndex - 1 < 0 ? 0 : _currentIndex - 1].pause();
+          _videoControllers[_currentIndex + 1 >= _videoControllers.length ? _videoControllers.length - 1 : _currentIndex + 1].pause();
         },
       );
     }
@@ -476,10 +489,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<bool> _getFavoriteStatus(String videoUrl) async {
-    return PreferenceUtils.instance.getBool(videoUrl) ?? false; // Return false if not found
-  }}
+    return PreferenceUtils.instance.getBool(videoUrl) ??
+        false; // Return false if not found
+  }
+}
 
-  Future<void> openCamera(BuildContext context) async {
+Future<void> openCamera(BuildContext context) async {
   final picker = ImagePicker();
   final pickedVideo = await picker.pickVideo(source: ImageSource.camera);
 

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
 import 'package:voice_verse/common/app_component/custom_social_media_button.dart';
@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         child: Scaffold(
           body: Padding(
-            padding: EdgeInsets.only(left:  3.w,right: 3.w, top: 1.h),
+            padding: EdgeInsets.only(left:  10.w,right: 10.w, top: 10.h),
             child: SafeArea(
               child: Form(
                 key: _formKey,
@@ -64,10 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       Center(
                         child: Image.asset(
                           "images/logo.png",
-                          width: 53.w,
+                          width: 200.w,
                         ),
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 10.h),
                       Align(
                         alignment: Alignment.topLeft,
                         child: Text(
@@ -75,16 +75,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             color: Colors.white70,
                             fontWeight: FontWeight.w700,
-                            fontSize: 22.sp,
+                            fontSize: 25.sp,
                           ),
                         ),
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 10.h),
                       CustomSocialButton(
                         onApplePressed: () {},
                         onGmailPressed: () {},
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 10.h),
                       CustomTextFormField(
                         onChanged: (value) {
                           _checkButtonEnabled();
@@ -105,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintText: " Enter your email",
                         suffixIcon: const Icon(Icons.email_rounded),
                       ),
-                      SizedBox(height: 3.h,),
+                      SizedBox(height: 10.h,),
                       CustomTextFormField(
                         onChanged: (value) {
                           _checkButtonEnabled();
@@ -115,7 +115,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value.length < 8) {
                             return 'Password must be at least 8 characters long';
                           }
-
                           // Check if the password contains at least one uppercase letter
                           if (!value.contains(RegExp(r'[A-Z]'))) {
                             return 'Password must contain at least one uppercase letter';
@@ -165,11 +164,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: primaryColorDark,
-                            fontSize:15.sp,
+                            fontSize:13.sp,
                           ),
                         ),
                       ),
-                      SizedBox(height: 2.h,),
+                      SizedBox(height: 10.h,),
                       BlocBuilder<LoginCubit, LoginStates>(
                         builder: (context, state) {
                           return CustomButton(

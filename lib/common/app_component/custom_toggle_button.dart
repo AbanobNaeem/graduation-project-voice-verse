@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 
 class CustomTextAndButton extends StatelessWidget {
@@ -33,7 +33,7 @@ class CustomTextAndButton extends StatelessWidget {
           style: TextStyle(
               color: Colors.white60,
               fontWeight: FontWeight.w500,
-              fontSize: 15.sp),
+              fontSize: 13.sp),
         ),
         TextButton(
           onPressed: onPressed,
@@ -46,7 +46,7 @@ class CustomTextAndButton extends StatelessWidget {
             style: TextStyle(
                 color: primaryColorDark,
                 fontWeight: FontWeight.w500,
-                fontSize: 15.sp),
+                fontSize: 13.sp),
           ),
         )
       ],

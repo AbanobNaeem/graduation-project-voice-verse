@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
 import 'package:voice_verse/create_screen.dart';
@@ -61,20 +61,22 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white38,
         onTap: _onItemTapped,
-        iconSize: 23.sp,
-        selectedFontSize: 15.sp,
-        unselectedFontSize: 15.sp,
+        iconSize: 27.sp,
+        selectedFontSize: 14.sp,
+        unselectedFontSize: 14.sp,
         items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.home_rounded,),
+          BottomNavigationBarItem(
+            icon: selectedIndex == 0 ?
+                const Icon(Icons.home_rounded,):
+                const Icon(Icons.home_outlined),
             label: 'Home',
 
           ),
           BottomNavigationBarItem(
             icon: selectedIndex == 1
                 ? CustomButton(
-               buttonHeight: 7,
-                buttonRadius: 20,
+              buttonRadius: 20,
+                buttonHeight: 45,
                 onPressed: () {
                   showModalBottomSheet<dynamic>(
                     isScrollControlled: true,
@@ -248,8 +250,10 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
                 : const Icon(Icons.add_rounded, ),
             label: selectedIndex == 1 ? "" : "Create",
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.person_rounded, ),
+          BottomNavigationBarItem(
+            icon: selectedIndex == 2 ?
+                const Icon(Icons.person_rounded, ):
+                const Icon(Icons.person_outline_rounded),
             label: 'Profile',
           ),
         ],

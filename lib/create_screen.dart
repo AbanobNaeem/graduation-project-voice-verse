@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
 import 'package:voice_verse/common/app_component/empty_state_message.dart';
@@ -22,18 +22,18 @@ class CreateScreen extends StatelessWidget {
           "My Projects",
           style: TextStyle(
               color: Colors.white,
-              fontSize: 20.sp,
+              fontSize: 23.sp,
               fontWeight: FontWeight.bold),
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.only(right: 3.w),
+            padding: EdgeInsets.only(right: 5.w),
             child: CustomButton(
-                buttonRadius: 11,
+                buttonRadius: 15,
                 outLine: true,
                 textColor: primaryColorDark,
-                buttonWidth: 8.w,
-                buttonHeight: 5.5,
+                buttonWidth: 105,
+                buttonHeight: 40,
                 onPressed: () {
                   showModalBottomSheet<dynamic>(
                     isScrollControlled: true,
@@ -54,7 +54,7 @@ class CreateScreen extends StatelessWidget {
                                         colors: [
                                           backGroundColorDark.withOpacity(0.9),
                                           backGroundColorDark.withOpacity(0.7),
-                                          Colors.transparent
+                                         Colors.transparent
                                         ],
                                       begin: Alignment.bottomCenter,
                                       end: Alignment.topCenter
@@ -65,19 +65,17 @@ class CreateScreen extends StatelessWidget {
                                   decoration: const BoxDecoration(
                                     image: DecorationImage(
                                         image:AssetImage(
-                                            "images/graient_background.jpg"
+                                            "images/graient_background.jpg",
                                         ),
-                                      fit: BoxFit.cover
+                                      fit: BoxFit.cover,
                                     )
                                   ),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(top:4.h ,left: 4.w , right: 4.w),
+                                  padding: EdgeInsets.only(top:50.h ,left: 10.w , right: 10.w),
                                   child: Column(
                                     children: [
                                       Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
                                         children: [
                                           IconButton(
                                               onPressed: () {
@@ -86,8 +84,9 @@ class CreateScreen extends StatelessWidget {
                                               icon: Icon(
                                                 Icons.close_rounded,
                                                 color: Colors.white,
-                                                size: 22.sp,
+                                                size: 30.sp,
                                               )),
+                                          const Spacer(),
                                           TextButton(
                                               onPressed: () {},
                                               child: Text(
@@ -102,13 +101,13 @@ class CreateScreen extends StatelessWidget {
                                       SizedBox(height: 3.h,),
                                       Image.asset(
                                         'images/logo.png',
-                                        width: 70.w,
+                                        width: 250.w,
                                       ),
                                       SizedBox(
-                                        height: 2.h,
+                                        height: 5.h,
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 35),
+                                        padding:  EdgeInsets.only(left: 35.w),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
@@ -117,11 +116,11 @@ class CreateScreen extends StatelessWidget {
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 23.sp),
+                                                  fontSize: 30.sp),
                                             ),
                                             Container(
-                                              margin: EdgeInsets.only(bottom: 20,left: 5),
-                                              padding: EdgeInsets.all(5),
+                                              margin: EdgeInsets.only(bottom: 30.h,left: 5.w),
+                                              padding: const EdgeInsets.all(5),
                                               decoration: BoxDecoration(
                                                 color: Colors.grey.withOpacity(0.3),
                                                 borderRadius: BorderRadius.circular(10)
@@ -138,9 +137,7 @@ class CreateScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 3.h,
-                                      ),
+                                      SizedBox(height: 10.h,),
                                       const  PlanItem(
                                         outlineColor: primaryColorDark,
                                         check: true,
@@ -148,7 +145,7 @@ class CreateScreen extends StatelessWidget {
                                         planPrice: "EGP 189.99 Per month",
                                         totalPrice: "EGP 189.99",
                                       ),
-                                      SizedBox(height: 2.h,),
+                                      SizedBox(height: 15.h,),
                                       const PlanItem(
                                         outlineColor: secondColorDark,
                                          check: false,
@@ -156,7 +153,7 @@ class CreateScreen extends StatelessWidget {
                                           planPrice: "EGP 191.67 Per month",
                                           totalPrice: "EGP 2,299.99"
                                       ),
-                                      SizedBox(height: 2.h,),
+                                      SizedBox(height: 15.h,),
                                     ],
                                   ),
                                 )
@@ -165,7 +162,7 @@ class CreateScreen extends StatelessWidget {
                               ],
                             ),
                             Padding(
-                              padding:  EdgeInsets.only(left: 4.w,right: 4.w),
+                              padding:  EdgeInsets.only(left: 10.w,right: 10.w),
                               child: Column(
                                 children: [
                                   const PlanItem(
@@ -175,7 +172,7 @@ class CreateScreen extends StatelessWidget {
                                       planPrice: "EGP 99.99 Per week",
                                       totalPrice: "EGP 99.99"
                                   ),
-                                  SizedBox(height: 3.h,),
+                                  SizedBox(height: 15.h,),
                                   Padding(
                                     padding:  EdgeInsets.symmetric(horizontal: 3.w),
                                     child: Row(
@@ -200,7 +197,7 @@ class CreateScreen extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(height: 2.h,),
+                                  SizedBox(height: 20.h,),
                                   CustomButton(
                                       onPressed: (){},
                                       text: "Get Started"

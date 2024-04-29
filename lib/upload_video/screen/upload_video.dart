@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
 import 'package:voice_verse/common/app_component/custom_text_form_field.dart';
@@ -63,10 +63,10 @@ class _UploadVideoState extends State<UploadVideo> {
         child: Scaffold(
           appBar: AppBar(
             bottom: PreferredSize(
-              preferredSize: Size.fromHeight(0.2.h),
+              preferredSize: Size.fromHeight(1.h),
               child: Container(
                 color: secondColorDark,
-                height: 0.1.h,
+                height: 1.h,
               ),
             ),
             backgroundColor: backGroundColorDark,
@@ -76,7 +76,7 @@ class _UploadVideoState extends State<UploadVideo> {
               style: TextStyle(
                 color: Colors.white60,
                 fontWeight: FontWeight.bold,
-                fontSize: 18.sp,
+                fontSize: 20.sp,
               ),
             ),
             leading: IconButton(
@@ -90,7 +90,7 @@ class _UploadVideoState extends State<UploadVideo> {
             ),
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            padding:  EdgeInsets.symmetric(vertical: 20.h, horizontal: 10.w),
             child: Form(
               key: _formKey,
               child: SingleChildScrollView(
@@ -106,13 +106,13 @@ class _UploadVideoState extends State<UploadVideo> {
                         } else {
                           final ImageProvider? thumbnail = snapshot.data;
                           return Container(
-                            width: 40.w,
-                            height: 25.h,
+                            width: 150.w,
+                            height: 200.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(25),
                               border: Border.all(
                                 color: primaryColorDark,
-                                width: 0.5.w
+                                width: 1.w
                               ),
                               image: thumbnail != null
                                   ? DecorationImage(
@@ -125,7 +125,7 @@ class _UploadVideoState extends State<UploadVideo> {
                         }
                       },
                     ),
-                    SizedBox(height: 2.h),
+                    SizedBox(height: 5.h),
                     CustomTextFormField(
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
@@ -139,7 +139,7 @@ class _UploadVideoState extends State<UploadVideo> {
                         return null; // Return null if the input is valid
                       },
                     ),
-                    SizedBox(height: 1.h),
+                    SizedBox(height: 10.h),
                     CustomTextFormField(
                       maxLine: 2,
                       label: 'Description',
@@ -154,8 +154,7 @@ class _UploadVideoState extends State<UploadVideo> {
                         return null; // Return null if the input is valid
                       },
                     ),
-
-                    SizedBox(height: 10.h,),
+                    SizedBox(height: 15.h,),
                     BlocBuilder<UploadVideoCubit, UploadVideoStates>(
                       builder: (context, state) {
                         return CustomButton(

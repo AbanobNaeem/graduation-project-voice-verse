@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 
 class CustomSocialButton extends StatelessWidget {
@@ -26,21 +26,21 @@ class CustomSocialButton extends StatelessWidget {
               : "Sign Up with one of the following options.",
           style: TextStyle(
             color: Colors.white60,
-            fontWeight: FontWeight.w600,
-            fontSize: 15.sp,
+            fontWeight: FontWeight.w500,
+            fontSize: 14.sp,
           ),
         ),
-        SizedBox(height: 2.h),
+        SizedBox(height: 5.h),
         Row(
           children: [
             Expanded(
               child: Container(
-                height: 8.h,
+                height: 50.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
                     color: secondColorDark,
-                    width: 0.5.w,
+                    width: 1.w,
                   ),
                 ),
                 child: TextButton.icon(
@@ -48,28 +48,28 @@ class CustomSocialButton extends StatelessWidget {
                   icon: Icon(
                     FontAwesomeIcons.apple,
                     color: Colors.white70,
-                    size: 21.sp,
+                    size: 22.sp,
                   ),
                   label: Text(
                     "Apple",
                     style: TextStyle(
                       color: Colors.white70,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
               ),
             ),
-            SizedBox(width: 2.w),
+            SizedBox(width: 10.w),
             Expanded(
               child: Container(
-                height: 8.h,
+                height: 50.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
                     color: secondColorDark,
-                    width: 0.5.w,
+                    width: 1.w,
                   ),
                 ),
                 child: TextButton.icon(
@@ -77,14 +77,14 @@ class CustomSocialButton extends StatelessWidget {
                   icon: Icon(
                     FontAwesomeIcons.google,
                     color: Colors.white70,
-                    size: 21.sp,
+                    size: 22.sp,
                   ),
                   label: Text(
                     "Gmail",
                     style: TextStyle(
                       color: Colors.white70,
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 22.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -92,29 +92,29 @@ class CustomSocialButton extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 2.h),
+        SizedBox(height: 5.h),
         Row(
           children: [
             Expanded(
               child: Divider(
                 color: secondColorDark,
-                thickness: 0.2.h,
+                thickness: 1.h,
               ),
             ),
-            SizedBox(width: 2.w),
+            SizedBox(width: 10.w),
             Text(
               "Or With",
               style: TextStyle(
                 color: Colors.white60,
                 fontWeight: FontWeight.w400,
-                fontSize: 15.sp,
+                fontSize: 14.sp,
               ),
             ),
-            SizedBox(width: 2.w),
+            SizedBox(width: 10.w),
             Expanded(
               child: Divider(
                 color: secondColorDark,
-                thickness: 0.2.h,
+                thickness: 1.h,
               ),
             ),
           ],

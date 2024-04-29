@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/custom_back_button.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
@@ -55,39 +55,41 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           resizeToAvoidBottomInset: false,
           body: Padding(
             padding:  EdgeInsets.only(
-              top: 20.sp,
-              left: 16.sp,
-              right: 16.sp,
+              top: 10.h,
+              left: 10.w,
+              right: 10.w,
             ),
             child: SafeArea(
               child: Form(
                 key: _formKey,
                 child: Column(
                   children: [
-                    const CustomBackButton(title: "Forgot Password"),
-                    SizedBox(height: 5.h,),
+                    CustomBackButton(
+                        onPressed: (){Navigator.pop(context);},
+                        title: "Forgot Password"),
+                    SizedBox(height: 15.h,),
                     Image.asset(
                       "images/icons/Email campaign-amico.png",
-                      width: 60.w,
+                      width: 200.w,
                     ),
-                    SizedBox(height: 2.h,),
+                    SizedBox(height: 10.h,),
                     Text(
                       "Mail Address Here",
                       style: TextStyle(
                           color: Colors.white70,
                           fontWeight: FontWeight.w500,
-                          fontSize: 20.sp),
+                          fontSize: 27.sp),
                     ),
-                    SizedBox(height: 1.h,),
+                    SizedBox(height: 5.h,),
                     Text(
                       "Please Enter Your Email Address To Receive a Verification Code.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white38,
                           fontWeight: FontWeight.w500,
-                          fontSize: 18.2.sp),
+                          fontSize: 19.sp),
                     ),
-                    SizedBox(height: 3.h,),
+                    SizedBox(height: 10.h,),
                     CustomTextFormField(
                       textInputAction: TextInputAction.done,
                       keyboardType: TextInputType.emailAddress,
@@ -97,10 +99,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         _checkButtonEnabled();
                       },
                       validator: (value) {
-                        if (!RegExp(r'^[\w-]+@([\w-]+\.)+[\w-]{2,4}$')
-                            .hasMatch(value)) {
-                          return 'Please enter a valid email address';
-                        }
                         if (!value.endsWith('.com') &&
                             !value.endsWith('.net') &&
                             !value.endsWith('.org')) {

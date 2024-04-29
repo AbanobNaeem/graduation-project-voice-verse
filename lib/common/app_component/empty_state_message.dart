@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:voice_verse/common/app_colors/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EmptyStateMessage extends StatelessWidget {
   final String imagePath;
@@ -24,18 +23,18 @@ class EmptyStateMessage extends StatelessWidget {
           Image.asset(
             imagePath,
             color: Colors.white38,
-            scale: 3.5,
+            scale: 3,
           ),
-          SizedBox(height: 1.h),
+          SizedBox(height: 5.h),
           Text(
             mainText,
             style:  TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w600,
-              fontSize: 22.sp,
+              fontSize: 30.sp,
             ),
           ),
-          SizedBox(height: 1.h,),
+          SizedBox(height: 5.h,),
           Padding(
             padding:  EdgeInsets.symmetric(horizontal: 8.w),
             child: Text(
@@ -43,7 +42,7 @@ class EmptyStateMessage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white60,
-                fontSize: 17.sp,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.w500
               ),
             ),

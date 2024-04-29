@@ -65,12 +65,15 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
           "token":"@V*ice_Verse$token"
         },
       );
+
       if (response.statusCode == 200) {
+        PreferenceUtils.instance.setBool(videoUrl,false);
         emit(RemoveFromFavoriteSuccessState());
       }
       else {
         RemoveFromFavoriteFailureState(httpConsumer.parsResponse(response)[ApiKey.errorMessage]);
       }
+
     }catch(e){
       RemoveFromFavoriteFailureState(e.toString());
     }

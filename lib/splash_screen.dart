@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/data_source/core/API/end_points.dart';
 import 'package:voice_verse/data_source/local/preference_utils.dart';
 import 'package:voice_verse/navigation_bar/navigation_bar.dart';
@@ -63,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
             child: Center(
               child: Image.asset(
                 "images/logo.png",
-                width: 70.sp,
+                width: 250.sp,
               ),
             ),
           ),

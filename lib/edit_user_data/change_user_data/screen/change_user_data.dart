@@ -1,6 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
 import 'package:voice_verse/common/app_component/custom_text_form_field.dart';
@@ -35,7 +36,9 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
 
   final _formKey = GlobalKey<FormState>();
 
-  late  bool obscure =  true ;
+  late  bool cObscure =  true ;
+
+  late bool pObscure = true ;
 
 
 
@@ -86,10 +89,10 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
         Scaffold(
           appBar: AppBar(
             bottom: PreferredSize(
-              preferredSize: Size.fromHeight(0.2.h),
+              preferredSize: Size.fromHeight(1.h),
               child: Container(
                 color: secondColorDark,
-                height: 0.1.h,
+                height: 1.h,
               ),
             ),
             backgroundColor: backGroundColorDark,
@@ -98,7 +101,7 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
               "Edit password",
               style: TextStyle(
                   color: Colors.white60, fontWeight: FontWeight.bold,
-                  fontSize: 18.sp
+                  fontSize: 20.sp
               ),
             ),
             leading: IconButton(
@@ -111,21 +114,21 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
                 )),
           ),
           body: Padding(
-            padding: EdgeInsets.only(top: 3.h, left: 4.w, right: 4.w),
+            padding: EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
             child: SafeArea(
               child: Form(
                 key: _formKey,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                       Text(
+                      Text(
                         "Change your password",
                         style: TextStyle(
                             color: Colors.white70,
                             fontWeight: FontWeight.w500,
-                            fontSize: 22.sp),
+                            fontSize: 25.sp),
                       ),
-                      SizedBox(height: 2.h,),
+                      SizedBox(height: 5.h,),
                       Text(
                         "To change your account password please fill in the fields below",
                         textAlign: TextAlign.center,
@@ -134,7 +137,7 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
                             fontWeight: FontWeight.w600,
                             fontSize: 18.sp),
                       ),
-                      SizedBox(height: 3.h,),
+                      SizedBox(height: 20.h,),
                       CustomTextFormField(
                         validator: (value) {
                           // Check if the password meets the minimum length requirement
@@ -173,7 +176,7 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
                         controller: currentPasswordController,
                         suffixIcon: const Icon(Icons.password_rounded),
                       ),
-                      SizedBox(height: 2.h,),
+                      SizedBox(height: 10.h,),
                       CustomTextFormField(
                         validator: (value) {
                           // Check if the password meets the minimum length requirement
@@ -208,12 +211,19 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
                         label: "New Password",
                         hintText: " write new password",
                         controller: passwordController,
-                        suffixIcon: const Icon(Icons.lock_rounded),
-                        obscureText: true,
+                        suffixIcon: IconButton(onPressed: (){
+                          setState(() {
+                            pObscure =! pObscure ;
+                          });
+                        },
+                            icon:pObscure == true ?
+                            const Icon(Icons.visibility_rounded):
+                            const Icon(Icons.visibility_off_rounded) ),
+                        obscureText: pObscure,
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.visiblePassword,
                       ),
-                      SizedBox(height: 2.h,),
+                      SizedBox(height: 10.h,),
                       CustomTextFormField(
 
                         validator: (value) {
@@ -250,18 +260,18 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
                         label: "Confirm Password",
                         hintText: " Rewrite your password",
                         controller: confirmPasswordController,
-                        obscureText: obscure,
+                        obscureText: cObscure,
                         textInputAction: TextInputAction.done,
                         keyboardType: TextInputType.visiblePassword,
                         suffixIcon: IconButton(onPressed:(){
                           setState(() {
-                            obscure =! obscure ;
+                            cObscure =! cObscure ;
                           });
-                        }, icon: obscure == true ?
+                        }, icon: cObscure == true ?
                         const Icon(Icons.visibility_rounded):
                         const Icon(Icons.visibility_off_rounded)),
                       ),
-                      SizedBox(height: 4.h,),
+                      SizedBox(height: 20.h,),
                       BlocBuilder<ChangeUserDataCubit, ChangeUserDataStates>(
                         builder: (context, state) {
                           return CustomButton(
@@ -290,10 +300,10 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
         Scaffold(
           appBar: AppBar(
             bottom: PreferredSize(
-              preferredSize: Size.fromHeight(0.2.h),
+              preferredSize: Size.fromHeight(1.h),
               child: Container(
                 color: secondColorDark,
-                height: 0.1.h,
+                height: 1.h,
               ),
             ),
             backgroundColor: backGroundColorDark,
@@ -301,8 +311,9 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
             title:  Text(
               "Edit Name",
               style: TextStyle(
-                  color: Colors.white60, fontWeight: FontWeight.bold,
-                  fontSize: 18.sp
+                  color: Colors.white60,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 20.sp
               ),
             ),
             leading: IconButton(
@@ -315,7 +326,7 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
                 )),
           ),
           body: Padding(
-            padding:  EdgeInsets.only(top: 3.h, left: 4.w, right: 4.w),
+            padding:  EdgeInsets.only(top: 15.h, left: 10.w, right: 10.w),
             child: SafeArea(
               child: Form(
                 key: _formKey,
@@ -324,26 +335,24 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
                     children: [
                       Image.asset(
                           "images/icons/Resume-rafiki.png",
-                        width: 60.sp,
+                        width: 200.sp,
                       ),
-                       SizedBox(height: 2.h,),
                        Text(
                         "Change your Name",
                         style: TextStyle(
                             color: Colors.white70,
                             fontWeight: FontWeight.w500,
-                            fontSize: 22.sp),
+                            fontSize: 30.sp),
                       ),
-                       SizedBox(height: 2.h,),
                        Text(
                         "Your username needs to be updated Please choose a new one.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white38,
                             fontWeight: FontWeight.w600,
-                            fontSize: 17.5.sp),
+                            fontSize: 17.sp),
                       ),
-                      SizedBox(height: 3.h,),
+                      SizedBox(height: 15.h,),
                       CustomTextFormField(
                         validator: (value) {
                           if (value.isEmpty) {
@@ -364,7 +373,7 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
                         controller: newNameController,
                         suffixIcon: const Icon(Icons.person_rounded),
                       ),
-                       SizedBox(height: 4.h,),
+                       SizedBox(height: 20.h,),
                       BlocBuilder<ChangeUserDataCubit, ChangeUserDataStates>(
                         builder: (context, state) {
                           return CustomButton(

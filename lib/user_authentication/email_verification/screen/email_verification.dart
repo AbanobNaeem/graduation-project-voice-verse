@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/custom_back_button.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
@@ -79,34 +79,22 @@ class _EmailVerificationState extends State<EmailVerification> {
           resizeToAvoidBottomInset: false,
           body: Padding(
             padding: EdgeInsets.only(
-              top: 20.sp,
-              left: 16.sp,
-              right: 16.sp,
+              top: 10.h,
+              left: 10.w,
+              right: 10.w,
             ),
             child: SafeArea(
               child: Column(
                 children: [
-                  const CustomBackButton(title: "Email Verification"),
-                  SizedBox(
-                    height: 5.h,
-                  ),
+                   CustomBackButton(
+                      onPressed: (){Navigator.pop(context);},
+                      title: "Email Verification"),
+                  SizedBox(height: 15.h,),
                   Image.asset(
                     "images/icons/Enter OTP-amico.png",
-                    width: 55.sp,
+                    width: 200.sp,
                   ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  Text(
-                    "Get your code",
-                    style: TextStyle(
-                        color: Colors.white70,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 22.sp),
-                  ),
-                  SizedBox(
-                    height: 17.sp,
-                  ),
+                  SizedBox(height: 20.h,),
                   Text(
                     "Please enter 5 digit code that send to ${widget.email}",
                     textAlign: TextAlign.center,
@@ -115,7 +103,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                         fontWeight: FontWeight.w500,
                         fontSize: 18.sp),
                   ),
-                  SizedBox(height: 27.sp),
+                  SizedBox(height: 10.h),
                   OTPTextField(
                     controller: otpController,
                     length: 5,
@@ -131,7 +119,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                         .size
                         .width,
                     textFieldAlignment: MainAxisAlignment.spaceAround,
-                    fieldWidth: 30.sp,
+                    fieldWidth: 50.w,
                     fieldStyle: FieldStyle.underline,
                     otpFieldStyle: OtpFieldStyle(
                       backgroundColor: Colors.transparent,
@@ -139,13 +127,11 @@ class _EmailVerificationState extends State<EmailVerification> {
                       focusBorderColor: primaryColorDark,
                     ),
                     style: TextStyle(
-                        fontSize: 20.sp,
+                        fontSize: 25.sp,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: 16.sp,
-                  ),
+                  SizedBox(height: 16.h,),
                   CustomTextAndButton(
                     onPressed: () {
                       cubit2.sendCode(email: widget.email);
@@ -154,9 +140,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                     message: "If your code missed, tap to ",
                     buttonTitle: "Resend",
                   ),
-                  SizedBox(
-                    height: 27.sp,
-                  ),
+                  SizedBox(height: 20.h,),
                   BlocBuilder<EmailVerificationCubit, EmailVerificationStates>(
                     builder: (context, state) {
                       return CustomButton(

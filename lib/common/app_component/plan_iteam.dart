@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 
 class PlanItem extends StatelessWidget {
@@ -24,23 +24,23 @@ class PlanItem extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(
           color: outlineColor,
-          width: 0.2.w,
+          width: 1.w,
         ),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Container(
         width: double.infinity,
-        height: 10.h,
+        height: 50.h,
         decoration: BoxDecoration(
           color: secondColorDark,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
-          padding: EdgeInsets.only(right: 3.w),
+          padding: EdgeInsets.only(right: 5.w),
           child: Row(
             children: [
               Transform.scale(
-                scale: 1.1,
+                scale: 1,
                 child: Checkbox(
                   checkColor: Colors.white,
                   value: check,
@@ -48,7 +48,7 @@ class PlanItem extends StatelessWidget {
                   onChanged: (bool? value) {},
                 ),
               ),
-              SizedBox(width: 3.w),
+              SizedBox(width: 5.w),
               Padding(
                 padding: EdgeInsets.only(top: 2.h, bottom: 2.h),
                 child: Column(
@@ -62,7 +62,7 @@ class PlanItem extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    SizedBox(height: 0.3.h),
+                    SizedBox(height: 1.h),
                     Text(
                       planPrice,
                       style: TextStyle(

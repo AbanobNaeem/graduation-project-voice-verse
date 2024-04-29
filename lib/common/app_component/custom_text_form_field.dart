@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -43,11 +43,11 @@ class CustomTextFormField extends StatelessWidget {
             style:  TextStyle(
               color: Colors.white70,
               fontWeight: FontWeight.w500,
-              fontSize: 18.sp,
+              fontSize: 20.sp,
             ),
           ),
         ),
-        SizedBox(height: 0.5.h),
+        SizedBox(height: 5.h),
         TextFormField(
           maxLines: maxLine,
           validator: validator ,
@@ -62,28 +62,28 @@ class CustomTextFormField extends StatelessWidget {
             hintStyle:  TextStyle(
                 color: Colors.white30,
                 fontWeight: FontWeight.w600,
-                fontSize: 16.sp
+                fontSize: 15.sp
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide:BorderSide(
-                  width: 0.5.w,
+                  width: 1.w,
                   color: secondColorDark
               ),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide:  BorderSide(width: 0.5.w, color:primaryColorDark ),
+              borderSide:  BorderSide(width: 1.w, color:primaryColorDark ),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
-              borderSide:  BorderSide(width: 0.5.w, color: Colors.red.shade900 ),
+              borderSide:  BorderSide(width: 1.w, color: Colors.red.shade900 ),
             ),
             errorStyle: const  TextStyle(
               fontWeight: FontWeight.w800
             ),
           ),
-          style:  TextStyle(color: Colors.white70, fontSize: 16.sp),
+          style:  TextStyle(color: Colors.white70, fontSize: 15.sp),
 
         ),
       ],

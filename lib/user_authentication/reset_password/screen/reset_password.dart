@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
 import 'package:voice_verse/common/app_component/custom_text_form_field.dart';
 import 'package:voice_verse/shared/navigation.dart';
@@ -25,7 +25,9 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   final TextEditingController confirmPasswordController = TextEditingController();
 
-  late bool obscureText = true;
+  late bool cObscureText = true;
+  late bool pObscureText = true;
+
 
   final cubit = ResetPasswordCubit();
 
@@ -61,9 +63,9 @@ class _ResetPasswordState extends State<ResetPassword> {
         child: Scaffold(
           body: Padding(
             padding: EdgeInsets.only(
-              top: 20.sp,
-              left: 15.sp,
-              right: 15.sp,
+              top: 10.h,
+              left: 10.w,
+              right: 10.w,
             ),
             child: SafeArea(
               child: Form(
@@ -71,35 +73,44 @@ class _ResetPasswordState extends State<ResetPassword> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const CustomBackButton(title: "Reset Password"),
+                      CustomBackButton(title: "Reset Password",
+                        onPressed: () { navigatAndReplace(context,
+                            screen: const LoginScreen()); },),
+                      SizedBox(height: 10.h,),
                       Image.asset(
                           "images/icons/Key-rafiki.png",
-                          width: 60.sp,
+                          width: 230.sp,
                       ),
                       Text(
                         "Enter new password",
                         style: TextStyle(
                             color: Colors.white70,
                             fontWeight: FontWeight.w500,
-                            fontSize: 22.sp),
+                            fontSize: 30.sp),
                       ),
-                       SizedBox(height: 15.sp,),
+                       SizedBox(height: 5.h,),
                        Text(
                         "Your new password must be different from previous used password.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.white38,
                             fontWeight: FontWeight.w500,
-                            fontSize: 17.sp),
+                            fontSize: 16.sp),
                       ),
-                       SizedBox(height: 22.sp,),
+                       SizedBox(height: 15.h,),
                       CustomTextFormField(
                           onChanged: (value) {
                             _checkButtonEnabled();
                           },
                           keyboardType: TextInputType.visiblePassword,
                           textInputAction: TextInputAction.next,
-                          suffixIcon: const Icon(Icons.lock_rounded),
+                          suffixIcon: IconButton(onPressed: (){
+                            setState(() {
+                              pObscureText =! pObscureText ;
+                            });
+                          }, icon:Icon(pObscureText == true
+                              ? Icons.visibility_rounded
+                              : Icons.visibility_off_rounded) ),
                           validator: (value) {
                             // Check if the password meets the minimum length requirement
                             if (value.length < 8) {
@@ -131,7 +142,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           },
                           label: "Password",
                           hintText: " Write New password",
-                          obscureText: true,
+                          obscureText: pObscureText,
                           controller: passwordController),
                       SizedBox(height: 10.sp,),
                       CustomTextFormField(
@@ -143,7 +154,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         label: "Confirm password",
                         hintText: " Rewrite your password",
                         controller: confirmPasswordController,
-                        obscureText: obscureText,
+                        obscureText: cObscureText,
                         validator: (value) {
                           if (value != passwordController.text) {
                             return 'Passwords do not match';
@@ -178,10 +189,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                         suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
-                                obscureText = !obscureText;
+                                cObscureText = !cObscureText;
                               });
                             },
-                            icon: Icon(obscureText == true
+                            icon: Icon(cObscureText == true
                                 ? Icons.visibility_rounded
                                 : Icons.visibility_off_rounded)),
                       ),

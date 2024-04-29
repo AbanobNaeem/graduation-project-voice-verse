@@ -1,6 +1,6 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReelDetails extends StatelessWidget {
   ReelDetails({
@@ -16,33 +16,33 @@ class ReelDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-      padding: EdgeInsets.only(bottom: 1.h),
+      padding: EdgeInsets.only(bottom: 15.h),
       child:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
             dense: true,
             minLeadingWidth: 0,
-            horizontalTitleGap: 3.w,
+            horizontalTitleGap: 10.w,
             title: Text(
                userName,
               style: TextStyle(
                 color: Colors.white70,
                 fontWeight: FontWeight.w600,
-                fontSize: 16.sp
+                fontSize: 15.sp
               ),
             ),
             leading: CircleAvatar(
-              radius: 17.5.sp,
+              radius: 15.sp,
               backgroundImage: NetworkImage(userImage),
             ),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 3.5.w),
+            padding: EdgeInsets.symmetric(horizontal: 16.5.w),
             child: ExpandableText(
                description,
               style: TextStyle(
-                    fontSize: 15.sp,
+                    fontSize: 13.sp,
                   color: Colors.white70,
                   fontWeight: FontWeight.w500
                 ),
@@ -55,7 +55,7 @@ class ReelDetails extends StatelessWidget {
                 linkEllipsis: false,
                 linkStyle: TextStyle(
                   fontWeight: FontWeight.w800,
-                  fontSize: 15.sp
+                  fontSize: 13.sp
                 ),
             ),
           ),

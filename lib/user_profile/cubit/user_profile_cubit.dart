@@ -35,7 +35,7 @@ class UserProfileCubit extends Cubit<UserProfileStates> {
           EndPoint.logOut,
           headers: {"token": "@V*ice_Verse$token"},
         );
-        PreferenceUtils.instance.clear();
+        PreferenceUtils.instance.remove("token");
         emit(LogOutSuccessState());
       } catch (error) {
         LogOutFailureState(error.toString());

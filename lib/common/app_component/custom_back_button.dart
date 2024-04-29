@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:voice_verse/common/app_colors/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomBackButton extends StatelessWidget {
   final String title;
-
-
+  final VoidCallback? onPressed;
 
 
   const CustomBackButton({
     Key? key,
     required this.title,
+    required this.onPressed
   }) : super(key: key);
 
   @override
@@ -18,33 +17,31 @@ class CustomBackButton extends StatelessWidget {
     return Row(
       children: [
         InkWell(
-          onTap: (){
-            Navigator.pop(context);
-          },
+          onTap: onPressed,
           child: Container(
-            width: 10.w,
-            height: 5.h,
+            width: 40.w,
+            height: 35.h,
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.white60,
-                width: 0.3.w,
+                width: 0.5.w,
               ),
               borderRadius: BorderRadius.circular(15),
             ),
             child:  Icon(
                 Icons.arrow_back_ios_rounded,
                 color: Colors.white60,
-                size: 21.sp,
+                size: 23.sp,
               ),
             ),
         ),
-        SizedBox(width: 3.w),
+        SizedBox(width: 10.w),
         Text(
           title,
           style:  TextStyle(
             color: Colors.white70,
             fontWeight: FontWeight.w600,
-            fontSize: 20.sp,
+            fontSize: 25.sp,
           ),
         ),
       ],
