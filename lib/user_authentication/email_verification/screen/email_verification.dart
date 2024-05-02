@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
@@ -29,52 +30,34 @@ class _EmailVerificationState extends State<EmailVerification> {
   OtpFieldController otpController = OtpFieldController();
 
   final cubit = EmailVerificationCubit();
-  final cubit2 = ForgetPasswordCubit();
 
   late String otpValue = "";
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => cubit,
-        ),
-        BlocProvider(
-          create: (_) => cubit2,
-        ),
-      ],
-      child: MultiBlocListener(
-        listeners: [
-          BlocListener<EmailVerificationCubit, EmailVerificationStates>(
-            listener: (context, state) {
-              if (state is CodeFalseState) {
-                CustomSnackBar.showError(context,
-                    message: state.errorMessage, title: 'Failed');
-              }
-              if (state is CodeTrueState) {
-                navigatTo(context,
-                    screen: ResetPassword(
-                      code: otpValue,
-                    ));
-              }
-            },
-          ),
-          BlocListener<ForgetPasswordCubit, ForgetPasswordStates>(
-            listener: (context, state) {
-              if (state is ReSendCodeSuccessState){
-                CustomSnackBar.showSuccess(
-                    context, title: "Success",
-                    message: "the code resend successful. check your email!");
-              }
-              if(state is ReSendCodeFailureState){
-                CustomSnackBar.showError(context,
-                    message: "an error occurred!, please tap resend again ",
-                    title: "Failed");
-              }
-            },
-          ),
-        ],
+    return BlocProvider(
+      create: (context) => cubit,
+      child: BlocListener<EmailVerificationCubit, EmailVerificationStates>(
+        listener: (context, state) {
+          if (state is CodeFalseState) {
+            CustomSnackBar.showError(context,
+                message: state.errorMessage, title: 'Failed');
+          }
+          if (state is CodeTrueState) {
+            navigatTo(context,
+                screen: ResetPassword(
+                  code: otpValue,
+                ));
+          }
+          if(state is ReSendCodeSuccessState){
+            CustomSnackBar.showSuccess(
+                context, title: "Success", message: "Reset password code resent successfully. Check your email!");
+          }
+          if(state is ReSendCodeFailureState){
+            CustomSnackBar.showError(context,
+                message: "oops! try again!", title: "Failed");
+          }
+        },
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           body: Padding(
@@ -86,15 +69,21 @@ class _EmailVerificationState extends State<EmailVerification> {
             child: SafeArea(
               child: Column(
                 children: [
-                   CustomBackButton(
-                      onPressed: (){Navigator.pop(context);},
+                  CustomBackButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       title: "Email Verification"),
-                  SizedBox(height: 15.h,),
+                  SizedBox(
+                    height: 15.h,
+                  ),
                   Image.asset(
                     "images/icons/Enter OTP-amico.png",
                     width: 200.sp,
                   ),
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   Text(
                     "Please enter 5 digit code that send to ${widget.email}",
                     textAlign: TextAlign.center,
@@ -107,17 +96,12 @@ class _EmailVerificationState extends State<EmailVerification> {
                   OTPTextField(
                     controller: otpController,
                     length: 5,
-                    onChanged: (String? value) {
-                      if (value?.length == 5) {
-                        setState(() {
-                          otpValue = value!;
-                        });
-                      }
+                    onChanged: (String value) {
+                      setState(() {
+                        otpValue = value;
+                      });
                     },
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                    width: MediaQuery.of(context).size.width,
                     textFieldAlignment: MainAxisAlignment.spaceAround,
                     fieldWidth: 50.w,
                     fieldStyle: FieldStyle.underline,
@@ -131,16 +115,20 @@ class _EmailVerificationState extends State<EmailVerification> {
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 16.h,),
+                  SizedBox(
+                    height: 16.h,
+                  ),
                   CustomTextAndButton(
                     onPressed: () {
-                      cubit2.sendCode(email: widget.email);
+                      cubit.reSendCode(email: widget.email);
                     },
                     isTitle: true,
                     message: "If your code missed, tap to ",
                     buttonTitle: "Resend",
                   ),
-                  SizedBox(height: 20.h,),
+                  SizedBox(
+                    height: 20.h,
+                  ),
                   BlocBuilder<EmailVerificationCubit, EmailVerificationStates>(
                     builder: (context, state) {
                       return CustomButton(
@@ -148,7 +136,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                             cubit.checkCode(code: otpValue);
                           },
                           isLoading:
-                          state is! CheckCodeLoadingState ? false : true,
+                              state is! CheckCodeLoadingState ? false : true,
                           text: "Verify and Proceed");
                     },
                   )

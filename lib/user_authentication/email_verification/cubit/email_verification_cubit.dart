@@ -33,4 +33,28 @@ class EmailVerificationCubit extends Cubit<EmailVerificationStates> {
   }
 
 
+  Future<void> reSendCode({
+    required String email ,
+
+  }) async {
+    try {
+      final response = await httpConsumer.patch(
+        headers: {"Content-Type": "application/json"},
+        data: {
+          "email": email,
+        },
+        baseUrl: EndPoint.sendCode,
+      );
+      if (response.statusCode == 200) {
+        emit(ReSendCodeSuccessState());
+      } else {
+        emit(ReSendCodeFailureState(httpConsumer.parsResponse(response)[ApiKey.errorMessage]));
+      }
+
+    } catch (e) {
+      emit(ReSendCodeFailureState("An error occurred"));
+    }
+  }
+
+
 }

@@ -16,3 +16,9 @@ class CodeFalseState extends EmailVerificationStates{
 class CheckCodeLoadingState extends EmailVerificationStates{}
 
 
+class ReSendCodeSuccessState extends EmailVerificationStates {}
+
+class ReSendCodeFailureState  extends EmailVerificationStates{
+  final String errorMessage ;
+  ReSendCodeFailureState(this.errorMessage);
+}

@@ -15,9 +15,3 @@ class SendCodeFailureState extends ForgetPasswordStates {
   SendCodeFailureState(this.errorMessage);
 }
 
-class ReSendCodeSuccessState extends ForgetPasswordStates {}
-
-class ReSendCodeFailureState  extends ForgetPasswordStates{
-  final String errorMessage ;
-  ReSendCodeFailureState(this.errorMessage);
-}

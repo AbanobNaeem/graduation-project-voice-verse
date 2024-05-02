@@ -1,5 +1,3 @@
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,9 +14,7 @@ void main() async{
       systemNavigationBarColor: backGroundColorDark,
       statusBarColor: Colors.transparent));
 
-  // runApp(DevicePreview(
-  //     enabled: !kReleaseMode ,
-  //     builder: (context)=>MyApp()));
+
   runApp(MyApp());
 
 }

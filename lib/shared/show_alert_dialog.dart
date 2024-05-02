@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
 
@@ -20,17 +21,18 @@ void showAlertDialog(BuildContext context, {
         AlertDialog(
           title: Text(
             title!,
-            style: const TextStyle(
+            style:  TextStyle(
                 color: Colors.white,
-                fontWeight: FontWeight.w800
+                fontWeight: FontWeight.w800,
+                fontSize: 25.sp
             ),
           ),
           content: Text(
             content!,
-            style: const TextStyle(
+            style:  TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
-                fontSize: 16
+                fontSize: 15.sp
             ),
             textAlign: TextAlign.justify,
           ),
@@ -42,7 +44,7 @@ void showAlertDialog(BuildContext context, {
               textColor: Colors.red.shade900,
               outlineColor: Colors.red.shade900 ,
             ),
-            const SizedBox(height: 10,),
+            SizedBox(height: 10.h,),
             CustomButton(
               backGroundColor: secondColorDark.withOpacity(0.6),
                 onPressed: () {
