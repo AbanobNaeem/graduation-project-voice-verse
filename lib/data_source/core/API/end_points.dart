@@ -12,10 +12,11 @@ class EndPoint {
   static String changeName = "${_baseUrl}auth/username/edit";
   static String changeUserImage = "${_baseUrl}auth/profile/picture";
   static String getVideos = "${_baseUrl}video/all";
-  static String addToFavorites = "${_baseUrl}video/favorites/add";
-  static String removeFromFavorites = "${_baseUrl}video/favorites/delete";
+  static String addToFavorites = "${_baseUrl}video/favorites/add/";
+  static String removeFromFavorites = "${_baseUrl}video/favorites/delete/";
   static String getFavoriteList = "${_baseUrl}video/favorites/" ;
   static String uploadVideo = "${_baseUrl}video/new" ;
+  static String getUploadedVideos = "${_baseUrl}video/user";
 }
 
 class ApiKey {

@@ -3,8 +3,9 @@ import 'package:meta/meta.dart';
 import 'package:voice_verse/data_source/core/API/end_points.dart';
 import 'package:voice_verse/data_source/core/API/http_consumer.dart';
 import 'package:voice_verse/data_source/local/preference_utils.dart';
-import 'package:voice_verse/models/favorite_list.dart';
 import 'package:voice_verse/models/reels_data_model.dart';
+
+import '../../models/favorite_list.dart';
 
 part 'home_screen_state.dart';
 
@@ -26,56 +27,54 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     }
   }
 
+
+
   Future<void> addToFavorites({
-    required String videoUrl
+    required String id
 }) async{
     try{
       final response = await httpConsumer.post(
-          data: {
-            "url": videoUrl
-          },
-          baseUrl: EndPoint.addToFavorites,
+          baseUrl: '${EndPoint.addToFavorites}$id',
           headers:{
-            "Content-Type": "application/json",
             "token":"@V*ice_Verse$token"
           },
       );
+      print("response==================>"+response.body.toString());
       if (response.statusCode == 200) {
         emit(AddToFavoriteSuccessState());
       }
       else {
-        AddTOFavoriteFailureState(httpConsumer.parsResponse(response)[ApiKey.errorMessage]);
+        print("error======> ${ApiKey.errorMessage}");
+        emit(AddTOFavoriteFailureState(httpConsumer.parsResponse(response)[ApiKey.errorMessage]));
       }
     }catch(e){
-      AddTOFavoriteFailureState(e.toString());
+      emit(AddTOFavoriteFailureState(e.toString()));
+      print('${e.toString()}');
     }
   }
 
+
   Future<void> removeFromFavorites({
-    required String videoUrl
+    required String id
   }) async{
     try{
       final response = await httpConsumer.delete(
-        data: {
-          "url": videoUrl
-        },
-        baseUrl: EndPoint.removeFromFavorites,
+        baseUrl: '${EndPoint.removeFromFavorites}$id',
         headers:{
-          "Content-Type": "application/json",
           "token":"@V*ice_Verse$token"
         },
       );
 
       if (response.statusCode == 200) {
-        PreferenceUtils.instance.setBool(videoUrl,false);
+        PreferenceUtils.instance.setBool(id,false);
         emit(RemoveFromFavoriteSuccessState());
       }
       else {
-        RemoveFromFavoriteFailureState(httpConsumer.parsResponse(response)[ApiKey.errorMessage]);
+        emit(RemoveFromFavoriteFailureState(httpConsumer.parsResponse(response)[ApiKey.errorMessage]));
       }
 
     }catch(e){
-      RemoveFromFavoriteFailureState(e.toString());
+      emit(RemoveFromFavoriteFailureState(e.toString()));
     }
   }
 

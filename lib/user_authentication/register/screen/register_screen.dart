@@ -97,6 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         hintText: " Enter your name",
                         suffixIcon: const Icon(Icons.person_rounded),
                       ),
+                      SizedBox(height: 5.h,),
                       CustomTextFormField(
                         onChanged: (value){
                           _checkButtonEnabled();
@@ -116,6 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         hintText: " Enter your email",
                         suffixIcon: const Icon(Icons.email_rounded),
                       ),
+                      SizedBox(height: 5.h,),
                       CustomTextFormField(
                           onChanged: (value){
                             _checkButtonEnabled();
@@ -163,6 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           const Icon(Icons.visibility_off_rounded),),
                           obscureText: pObscure
                       ),
+                      SizedBox(height: 5.h,),
                       CustomTextFormField(
                         onChanged: (value){
                           _checkButtonEnabled();

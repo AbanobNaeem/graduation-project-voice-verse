@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
-import 'package:voice_verse/create_screen.dart';
+import 'package:voice_verse/user_projects.dart';
 import 'package:voice_verse/home_screen/screen/home_screen.dart';
+import 'package:voice_verse/models/user_data_model.dart';
 import 'package:voice_verse/user_profile/screen/user_profile_screen.dart';
+import 'package:voice_verse/voice_verse_ai_feature/ai_options.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
   BottomNavigationBarWidget({
@@ -41,7 +43,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
     dataIsUpdated = widget.dataUpdated ?? false ;
     screens = [
       const HomeScreen(),
-      const CreateScreen(),
+      const UserProjects(),
       UserProfileScreen(dataUpdated:dataIsUpdated ), // Assuming you have imported and provided correct parameters
     ];
     if (widget.screenIndex != null) {
@@ -75,174 +77,14 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
           BottomNavigationBarItem(
             icon: selectedIndex == 1
                 ? CustomButton(
-              buttonRadius: 20,
+                buttonRadius: 20,
                 buttonHeight: 45,
                 onPressed: () {
                   showModalBottomSheet<dynamic>(
                     isScrollControlled: true,
                     context: context,
                     builder: (BuildContext context) {
-                      return Container(
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.65, // Adjust the height as needed
-                        decoration: const BoxDecoration(
-                          color: backGroundColorDark,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            topRight: Radius.circular(25),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: 60,
-                                height: 4,
-                                decoration: BoxDecoration(
-                                  color: secondColorDark,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              const Text(
-                                "Hi Abanob Naeem!",
-                                style: TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              const Text(
-                                "What are you up to today?",
-                                style: TextStyle(
-                                  color: Colors.white60,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              TextFormField(
-                                decoration: const InputDecoration(
-                                  disabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        15,
-                                      ), // Adjust the radius as needed
-                                    ),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        15,
-                                      ), // Adjust the radius as needed
-                                    ),
-                                  ),
-                                  hintText:
-                                  " upload the song link to change voice",
-                                  hintStyle: TextStyle(
-                                    color: Colors.white60,
-                                    fontSize: 15,
-                                  ),
-                                  suffixIcon: Icon(Icons.upload_rounded),
-                                  suffixIconColor: Colors.white60,
-                                ),
-                                style: const TextStyle(
-                                  color: Colors.white60,
-                                  fontSize: 15,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(25),
-                                        color: Colors.transparent,
-                                        border: Border.all(
-                                          color: secondColorDark,
-                                        ),
-                                      ),
-                                      height: 200,
-                                      child: const Padding(
-                                        padding:
-                                        EdgeInsets.only(top: 15),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.male_rounded,
-                                              color: Colors.white60,
-                                              size: 120,
-                                            ),
-                                            Text(
-                                              "male",
-                                              style: TextStyle(
-                                                color: Colors.white60,
-                                                fontSize: 25,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(25),
-                                        color: Colors.transparent,
-                                        border: Border.all(
-                                          color: secondColorDark,
-                                        ),
-                                      ),
-                                      height: 200,
-                                      child: const Padding(
-                                        padding:
-                                        EdgeInsets.only(top: 15),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.female_rounded,
-                                              color: Colors.white60,
-                                              size: 120,
-                                            ),
-                                            Text(
-                                              "female",
-                                              style: TextStyle(
-                                                color: Colors.white60,
-                                                fontSize: 25,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      );
+                      return AiOptions();
                     },
                   );
                 },

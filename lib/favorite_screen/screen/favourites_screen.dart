@@ -27,8 +27,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   final cubit1 = FavoriteCubit();
   final cubit2 = HomeScreenCubit();
   double? _progress;
-  FavoriteList? favorites;
-
+  FavoriteList? favoriteList ;
   @override
   void initState() {
     super.initState();
@@ -49,7 +48,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       child: BlocConsumer<FavoriteCubit, FavoritesStates>(
         listener: (context, state) {
           if (state is GetFavoritesSuccess) {
-            favorites = state.favoriteList;
+            favoriteList = state.favoriteList;
           }
           if (state is GetFavoritesFailure) {
             print(state.errorMessage);
@@ -92,16 +91,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         color: primaryColorDark,
                       ),
                     )
-                  : favorites?.results?.videos?.isNotEmpty ?? false
+                  : favoriteList?.results?.videos?.isNotEmpty ?? false
                       ? SafeArea(
                           child: ListView.builder(
-                            itemCount: favorites?.results?.videos?.length ?? 0,
+                            itemCount: favoriteList?.results?.videos?.length ?? 0,
                             itemBuilder: (BuildContext context, int index) {
                               return FutureBuilder<Uint8List?>(
                                 future: VideoThumbnail.thumbnailData(
-                                  video:
-                                      favorites?.results?.videos?[index].url ??
-                                          '',
+                                  video: favoriteList?.results!.videos![index].id!.video!.url ?? "",
                                   // Provide a default value for the video URL
                                   imageFormat: ImageFormat.JPEG,
                                   maxWidth: 100,
@@ -123,15 +120,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   VideoPlayerScreen(
-                                                videoUrl: favorites?.results
-                                                        ?.videos?[index].url ??
-                                                    '',
-                                                titleOfVideo: favorites
-                                                        ?.results
-                                                        ?.videos?[index]
-                                                        .id
-                                                        ?.title ??
-                                                    '',
+                                                videoUrl: favoriteList?.results!.videos![index].id!.video!.url ?? "",
+                                                titleOfVideo: favoriteList?.results!.videos![index].id!.title ?? ""
                                               ),
                                             ),
                                           );
@@ -162,12 +152,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    favorites
-                                                            ?.results
-                                                            ?.videos?[index]
-                                                            .id
-                                                            ?.title ??
-                                                        '',
+                                                    favoriteList?.results?.videos?[index].id?.title ?? '',
                                                     // Provide a default value for the title
                                                     style: TextStyle(
                                                       color: Colors.white,
@@ -177,7 +162,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    favorites?.results?.videos?[index].id?.description ?? '',
+                                                    favoriteList?.results?.videos?[index].id?.description ?? '',
                                                     // Provide a default value for the description
                                                     style: TextStyle(
                                                       color: Colors.white70,
@@ -187,7 +172,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    favorites
+                                                    favoriteList
                                                             ?.results
                                                             ?.videos?[index]
                                                             .id
@@ -213,9 +198,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                 itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                                                   PopupMenuItem(
                                                     onTap: () {
-                                                      cubit2.removeFromFavorites(videoUrl: favorites!.results!.videos![index].url!,);
+                                                      cubit2.removeFromFavorites(id: favoriteList!.results!.id!,);
                                                       setState(() {
-                                                        favorites!.results!.videos!.removeAt(index);
+                                                        favoriteList!.results!.videos!.removeAt(index);
                                                       });
                                                     },
                                                     child: Row(
@@ -245,10 +230,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                     onTap: () {
                                                       FileDownloader
                                                           .downloadFile(
-                                                        url: favorites!
-                                                            .results!
-                                                            .videos![index]
-                                                            .url!,
+                                                        url: favoriteList!.results!.videos![index].id!.video!.url!.toString(),
                                                         onProgress:
                                                             (name, progress) {
                                                           setState(() {
@@ -288,11 +270,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                                   PopupMenuItem(
                                                     onTap: () async {
                                                       // Get the video URL from your API response
-                                                      final videoUrl =
-                                                          favorites!
-                                                              .results!
-                                                              .videos![index]
-                                                              .url!;
+                                                      final videoUrl =favoriteList!.results!.videos![index].id!.video!.url!.toString();
                                                       if (videoUrl.isNotEmpty) {
                                                         await Share.share(
                                                             videoUrl);
@@ -351,11 +329,14 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           child: EmptyStateMessage(
                               imagePath: "images/icons/broken-heart.png",
                               mainText: "No favorites yet!",
-                              subText:
-                                  "Like a recipe you see? save them here to your favourites."),
+                              subText: "Like a recipe you see? save them here to your favourites.",
+                              scale: 3,
+                              color:  Colors.white30,
+                          ),
                         ),
             );
-          } else {
+          }
+          else {
             return const SizedBox();
           }
         },

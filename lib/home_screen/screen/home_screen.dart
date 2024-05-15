@@ -22,6 +22,9 @@ import 'package:voice_verse/models/user_data_model.dart';
 import 'package:voice_verse/shared/snack_bar.dart';
 import 'package:voice_verse/upload_video/screen/upload_video.dart';
 
+
+
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -94,9 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 videoData = state.reel;
                 _videoControllers = List.generate(
                   videoData!.results!.length,
-                      (index) => VideoPlayerController.network(
-                      videoData!.results![index].url!),
-                );
+                      (index) => VideoPlayerController.network(videoData!.results![index].video!.url!),);
                 for (var controller in _videoControllers) {
                   controller.initialize().then((_) {
                     setState(() {}); // Force rebuild to reflect changes
@@ -108,6 +109,12 @@ class _HomeScreenState extends State<HomeScreen> {
             if (state is GetVideoFailureState) {
               CustomSnackBar.showError(context,
                   message: 'Failed to fetch videos', title: "Failed");
+            }
+            if (state is AddToFavoriteSuccessState){
+              print('================added to favorite ====================');
+            }
+            if(state is AddTOFavoriteFailureState){
+              print(state.errorMessage);
             }
           },
           builder: (context, state) {
@@ -289,13 +296,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       Flexible(
                         flex: 12,
                         child: ReelDetails(
-                            userImage: videoData!
-                                .results![index].user?.profileImage!.url ??
-                                "",
-                            userName:
-                            videoData!.results![index].user?.userName ?? "",
-                            description:
-                            videoData!.results![index].description ?? ""),
+                            userImage: videoData!.results![index].user?.profileImage!.url ?? "",
+                            userName: videoData!.results![index].user?.userName ?? "",
+                            description: videoData!.results![index].description ?? ""),
                       ),
                       Flexible(
                         flex: 2,
@@ -305,26 +308,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             LikeButton(
                               isLiked: videoData!.results![index].isFavorite,
                               onTap: (isLiked) async {
-                                final String videoUrl = videoData!.results![index].url!;
+                                final String videoId = videoData!.results![index].id!;
                                 final bool isFavorite = videoData!.results![index].isFavorite;
-                                final bool snapshotData = await _getFavoriteStatus(videoUrl); // Fetch favorite status directly
+                                final bool snapshotData = await _getFavoriteStatus(videoId); // Fetch favorite status directly
                                 if (isFavorite || snapshotData == true) {
-                                  await cubit.removeFromFavorites(videoUrl: videoUrl);
+                                  await cubit.removeFromFavorites(id: videoId);
                                   videoData!.results![index].isFavorite = false;
-                                  _updateFavoriteStatus(false, videoUrl); // Save disliked status
+                                  _updateFavoriteStatus(false, videoId); // Save disliked status
                                 } else {
-                                  await cubit.addToFavorites(
-                                      videoUrl: videoUrl);
+                                  await cubit.addToFavorites(id: videoId);
                                   videoData!.results![index].isFavorite = true;
-                                  _updateFavoriteStatus(
-                                      true, videoUrl); // Save liked status
+                                  _updateFavoriteStatus(true, videoId); // Save liked status
                                 }
-
                                 return !isLiked;
                               },
                               likeBuilder: (bool isLiked) {
                                 return FutureBuilder<bool>(
-                                  future: _getFavoriteStatus(videoData!.results![index].url!),
+                                  future: _getFavoriteStatus(videoData!.results![index].id!),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       return Icon(
@@ -356,7 +356,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 : IconButton(
                               onPressed: () {
                                 FileDownloader.downloadFile(
-                                    url: videoData!.results![index].url!,
+                                    url: videoData!.results![index].video!.url!,
                                     onProgress: (name, progress) {
                                       setState(() {
                                         _progress = progress;
@@ -379,7 +379,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               onPressed: () async {
                                 // Get the video URL from your API response
                                 final videoUrl =
-                                videoData!.results![index].url!;
+                                videoData!.results![index].video!.url!;
                                 if (videoUrl.isNotEmpty) {
                                   await Share.share(videoUrl);
                                 } else {
@@ -407,7 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fit: BoxFit.cover,
                                   image: getProfileImageUrl() != null
                                       ? NetworkImage(getProfileImageUrl()!)
-                                      : const AssetImage("images/logo.png")
+                                      : NetworkImage("https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg")
                                   as ImageProvider<Object>,
                                 ),
                               ),
@@ -484,12 +484,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return null;
   }
 
-  void _updateFavoriteStatus(bool isLiked, String videoUrl) async {
-    PreferenceUtils.instance.setBool(videoUrl, isLiked);
+  void _updateFavoriteStatus(bool isLiked, String videoId) async {
+    PreferenceUtils.instance.setBool(videoId, isLiked);
   }
 
-  Future<bool> _getFavoriteStatus(String videoUrl) async {
-    return PreferenceUtils.instance.getBool(videoUrl) ??
+  Future<bool> _getFavoriteStatus(String videoId) async {
+    return PreferenceUtils.instance.getBool(videoId) ??
         false; // Return false if not found
   }
 }
@@ -499,7 +499,6 @@ Future<void> openCamera(BuildContext context) async {
   final pickedVideo = await picker.pickVideo(source: ImageSource.camera);
 
   if (pickedVideo != null) {
-    // If a video is picked, navigate to a screen to display or process it
     Navigator.push(
       context,
       MaterialPageRoute(

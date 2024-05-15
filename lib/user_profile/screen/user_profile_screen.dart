@@ -15,6 +15,7 @@ import 'package:voice_verse/models/user_data_model.dart';
 import 'package:voice_verse/shared/navigation.dart';
 import 'package:voice_verse/shared/show_alert_dialog.dart';
 import 'package:voice_verse/shared/snack_bar.dart';
+import 'package:voice_verse/uploaded_videos/screen/uploaded_videos_screen.dart';
 import 'package:voice_verse/user_authentication/login/screen/login_screen.dart';
 import 'package:voice_verse/user_profile/cubit/user_profile_cubit.dart';
 
@@ -159,19 +160,22 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           height: 15.h,
                         ),
                         EditUserDataButton(
-                            title: "My Status",
-                            onTap: () {},
-                            icon: Icons.stacked_bar_chart_rounded),
+                            title: "My Favorites",
+                            onTap: () {
+                              navigatTo(context,
+                                  screen: const FavoriteScreen());
+                            },
+                            icon: Icons.favorite_rounded),
                         SizedBox(
                           height: 15.h,
                         ),
                         EditUserDataButton(
-                            title: "My Favorites",
+                            title: "Uploaded videos",
                             onTap: () {
-                            navigatTo(context,
-                                screen: const FavoriteScreen());
+                              navigatTo(context, screen: UploadedVideosScreen());
+
                             },
-                            icon: Icons.favorite_rounded),
+                            icon: Icons.video_library_rounded),
                         SizedBox(
                           height: 15.h,
                         ),
@@ -180,7 +184,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           color: secondColorDark,
                         ),
                         SizedBox(
-                          height: 15.h,
+                          height: 10.h,
                         ),
                         CustomButton(
                             outLine: true,
@@ -199,6 +203,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             text: "Log out"),
                         SizedBox(height: 10.h),
                         CustomButton(
+
                             outLine: true,
                             outlineColor: secondColorDark,
                             textColor: Colors.red.shade900,

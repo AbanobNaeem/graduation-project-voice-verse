@@ -3,27 +3,27 @@ import 'package:meta/meta.dart';
 import 'package:voice_verse/data_source/core/API/end_points.dart';
 import 'package:voice_verse/data_source/core/API/http_consumer.dart';
 import 'package:voice_verse/data_source/local/preference_utils.dart';
-import 'package:voice_verse/models/favorite_list.dart';
-part 'favorite_state.dart';
+import 'package:voice_verse/models/uploaded_videos_model.dart';
 
-class FavoriteCubit extends Cubit<FavoritesStates> {
+part 'uploaded_videos_state.dart';
+
+class UploadedVideosCubit extends Cubit<UploadedVideosStates> {
+  UploadedVideosCubit() : super(UploadedVideosInitialState());
   HttpConsumer httpConsumer = HttpConsumer();
   final String? token = PreferenceUtils.instance.getString(ApiKey.token);
 
-  FavoriteCubit() : super(FavoriteInitialState());
 
-  Future<void> getFavorites() async {
+  Future<void> getUploadedVideos() async {
     try {
-      emit(GetFavoritesLoading());
+      emit(GetUploadedVideoLoadingState());
       final response = await httpConsumer.get(
-        EndPoint.getFavoriteList,
+        EndPoint.getUploadedVideos,
         headers: {"token": "@V*ice_Verse$token"},
       );
-      emit(GetFavoritesSuccess(FavoriteList.fromJson(response)));
+      emit(GetUploadedVideosSuccessState(UploadedVideosModel.fromJson(response)));
     }catch(error){
-      emit(GetFavoritesFailure(error.toString()));
+      emit(GetUploadedVideosFailureState(error.toString()));
     }
   }
-
 
 }

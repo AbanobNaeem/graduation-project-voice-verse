@@ -5,11 +5,15 @@ class EmptyStateMessage extends StatelessWidget {
   final String imagePath;
   final String mainText;
   final String subText;
+  final  double scale ;
+  final Color? color ;
 
   EmptyStateMessage({
     required this.imagePath,
     required this.mainText,
     required this.subText,
+    this.scale = 3.5  ,
+    this.color
   });
 
   @override
@@ -22,10 +26,10 @@ class EmptyStateMessage extends StatelessWidget {
         children: [
           Image.asset(
             imagePath,
-            color: Colors.white38,
-            scale: 3,
+            scale: scale,
+            color: color,
           ),
-          SizedBox(height: 5.h),
+          SizedBox(height: 10.h),
           Text(
             mainText,
             style:  TextStyle(

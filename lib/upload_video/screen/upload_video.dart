@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -163,13 +165,24 @@ class _UploadVideoState extends State<UploadVideo> {
                           state is! UploadVideoLoadingState ? false : true,
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              cubit.uploadVideo(
-                                  videoUrl: widget.videoUrl,
-                                  description: descriptionController.text,
-                                  title: titleController.text
-                              );
+                              if (cubit.isMp4File(widget.videoUrl)) {
+                                cubit.uploadVideo(
+                                    videoFile: File(widget.videoUrl),
+                                    description: descriptionController.text,
+                                    title: titleController.text
+                                );
+                              } else {
+                                // Show error message to the user
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Please provide a valid .mp4 video URL'),
+                                  ),
+                                );
+                              }
                             }
-                          } , text: "Upload",
+                          }
+
+                          , text: "Upload",
                         );
                       },
                     ),

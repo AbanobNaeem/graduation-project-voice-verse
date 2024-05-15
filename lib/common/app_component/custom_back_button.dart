@@ -4,17 +4,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomBackButton extends StatelessWidget {
   final String title;
   final VoidCallback? onPressed;
-
+  final double  width ;
 
   const CustomBackButton({
     Key? key,
     required this.title,
-    required this.onPressed
+    required this.onPressed,
+    this.width = 10
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         InkWell(
           onTap: onPressed,
@@ -35,7 +37,7 @@ class CustomBackButton extends StatelessWidget {
               ),
             ),
         ),
-        SizedBox(width: 10.w),
+        SizedBox(width: width.w,),
         Text(
           title,
           style:  TextStyle(

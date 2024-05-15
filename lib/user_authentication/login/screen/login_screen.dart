@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late bool _buttonEnabled = false;
   late bool obscurePassword = true;
 
+
   void _checkButtonEnabled() {
     setState(() {
       _buttonEnabled =
@@ -41,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => cubit,
+      create: (context) => cubit,
       child: BlocListener<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
@@ -53,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         child: Scaffold(
           body: Padding(
-            padding: EdgeInsets.only(left:  10.w,right: 10.w, top: 10.h),
+            padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.h),
             child: SafeArea(
               child: Form(
                 key: _formKey,
@@ -164,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             color: primaryColorDark,
-                            fontSize:13.sp,
+                            fontSize: 13.sp,
                           ),
                         ),
                       ),
@@ -214,4 +215,6 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordController.dispose();
     super.dispose();
   }
+
+
 }

@@ -1,5 +1,5 @@
 /// success : true
-/// results : [{"_id":"66006aab65d163dea5a3da2f","title":"30sec video","url":"https://res.cloudinary.com/dc4zgmrmf/video/upload/v1710941817/VoiceVerse/The_30-Second_Video_aj2dkt.mp4","user":{"profileImage":{"url":"https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg","id":"VoiceVerse%20defaults/user/userDefaultProfile"},"_id":"65f5a9e580c94a9263a4fc31","userName":"fatmaamr"},"description":"test vid","createdAt":"2024-03-24T18:02:19.074Z","updatedAt":"2024-03-24T18:02:19.074Z","__v":0},{"_id":"66006c2b65d163dea5a3da34","title":"rainy day","url":"https://res.cloudinary.com/dc4zgmrmf/video/upload/v1711303674/VoiceVerse/Rainy_Day_short_30_sec_animation_x70s4g.mp4","user":{"profileImage":{"url":"https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg","id":"VoiceVerse%20defaults/user/userDefaultProfile"},"_id":"65f5a9e580c94a9263a4fc31","userName":"fatmaamr"},"description":"2nd test vid","createdAt":"2024-03-24T18:08:43.329Z","updatedAt":"2024-03-24T18:08:43.329Z","__v":0},{"_id":"66006d0565d163dea5a3da39","title":"animation","url":"https://res.cloudinary.com/dc4zgmrmf/video/upload/v1711303606/VoiceVerse/30_second_animation_assignment_mhc2b8.mp4","user":{"profileImage":{"url":"https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg","id":"VoiceVerse%20defaults/user/userDefaultProfile"},"_id":"65f5a9e580c94a9263a4fc31","userName":"fatmaamr"},"description":"3rd test vid","createdAt":"2024-03-24T18:12:21.330Z","updatedAt":"2024-03-24T18:12:21.330Z","__v":0}]
+/// results : [{"video":{"url":"https://res.cloudinary.com/dc4zgmrmf/video/upload/v1714773695/VoiceVerse/videos/6633b1bdd1f752c1fe0b3360/bdjcmwe0dsvrormrfop0.mp4","id":"VoiceVerse/videos/6633b1bdd1f752c1fe0b3360/bdjcmwe0dsvrormrfop0"},"_id":"66355ec0023833b06ae7bcdd","title":"boo farhet el mared","user":{"profileImage":{"url":"https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg","id":"VoiceVerse%20defaults/user/userDefaultProfile"},"_id":"6633b1bdd1f752c1fe0b3360","userName":"fatmaamr"},"createdAt":"2024-05-03T22:01:36.906Z","updatedAt":"2024-05-03T22:01:36.906Z","__v":0},{"video":{"url":"https://res.cloudinary.com/dc4zgmrmf/video/upload/v1714773920/VoiceVerse/videos/6633b1bdd1f752c1fe0b3360/xh3nbpmj0gqmbxuo1t80.mp4","id":"VoiceVerse/videos/6633b1bdd1f752c1fe0b3360/xh3nbpmj0gqmbxuo1t80"},"_id":"66355fa1ace8a52d27d66f9b","title":"idiot ","description":"30 second test","user":{"profileImage":{"url":"https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg","id":"VoiceVerse%20defaults/user/userDefaultProfile"},"_id":"6633b1bdd1f752c1fe0b3360","userName":"fatmaamr"},"createdAt":"2024-05-03T22:05:21.134Z","updatedAt":"2024-05-03T22:05:21.134Z","__v":0},{"video":{"url":"https://res.cloudinary.com/dc4zgmrmf/video/upload/v1714773961/VoiceVerse/videos/6633b1bdd1f752c1fe0b3360/l2xfgpwrhfxedb6c2zmu.mp4","id":"VoiceVerse/videos/6633b1bdd1f752c1fe0b3360/l2xfgpwrhfxedb6c2zmu"},"_id":"66355fcaace8a52d27d66f9f","title":"test vid","description":"testt ","user":{"profileImage":{"url":"https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg","id":"VoiceVerse%20defaults/user/userDefaultProfile"},"_id":"6633b1bdd1f752c1fe0b3360","userName":"fatmaamr"},"createdAt":"2024-05-03T22:06:02.232Z","updatedAt":"2024-05-03T22:06:02.232Z","__v":0}]
 
 class ReelsDataModel {
   ReelsDataModel({
@@ -35,66 +35,67 @@ class ReelsDataModel {
 
 }
 
-/// _id : "66006aab65d163dea5a3da2f"
-/// title : "30sec video"
-/// url : "https://res.cloudinary.com/dc4zgmrmf/video/upload/v1710941817/VoiceVerse/The_30-Second_Video_aj2dkt.mp4"
-/// user : {"profileImage":{"url":"https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg","id":"VoiceVerse%20defaults/user/userDefaultProfile"},"_id":"65f5a9e580c94a9263a4fc31","userName":"fatmaamr"}
+/// video : {"url":"https://res.cloudinary.com/dc4zgmrmf/video/upload/v1714773695/VoiceVerse/videos/6633b1bdd1f752c1fe0b3360/bdjcmwe0dsvrormrfop0.mp4","id":"VoiceVerse/videos/6633b1bdd1f752c1fe0b3360/bdjcmwe0dsvrormrfop0"}
+/// _id : "66355ec0023833b06ae7bcdd"
+/// title : "boo farhet el mared"
+/// user : {"profileImage":{"url":"https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg","id":"VoiceVerse%20defaults/user/userDefaultProfile"},"_id":"6633b1bdd1f752c1fe0b3360","userName":"fatmaamr"}
 /// description : "test vid"
-/// createdAt : "2024-03-24T18:02:19.074Z"
-/// updatedAt : "2024-03-24T18:02:19.074Z"
+/// createdAt : "2024-05-03T22:01:36.906Z"
+/// updatedAt : "2024-05-03T22:01:36.906Z"
 /// __v : 0
 
 class Results {
   Results({
+      Video? video, 
       String? id, 
       String? title, 
-      String? url, 
-      User? user, 
-      String? description, 
-      String? createdAt, 
+      User? user,
+      String? description,
+      String? createdAt,
       String? updatedAt,
       num? v,
       bool isFavorite = false
   }){
+    _video = video;
     _id = id;
     _title = title;
-    _url = url;
     _user = user;
-    _description = description;
     _createdAt = createdAt;
     _updatedAt = updatedAt;
+    _description = description;
     _v = v;
     _isFavorite = isFavorite;
+}
 
-  }
   bool? _isFavorite;
   bool get isFavorite => _isFavorite ?? false;
 
   set isFavorite(bool value) {
     _isFavorite = value; // Setter for isFavorite
   }
+
   Results.fromJson(dynamic json) {
+    _video = json['video'] != null ? Video.fromJson(json['video']) : null;
     _id = json['_id'];
     _title = json['title'];
-    _url = json['url'];
     _user = json['user'] != null ? User.fromJson(json['user']) : null;
     _description = json['description'];
     _createdAt = json['createdAt'];
     _updatedAt = json['updatedAt'];
     _v = json['__v'];
   }
+  Video? _video;
   String? _id;
   String? _title;
-  String? _url;
   User? _user;
   String? _description;
   String? _createdAt;
   String? _updatedAt;
   num? _v;
 
+  Video? get video => _video;
   String? get id => _id;
   String? get title => _title;
-  String? get url => _url;
   User? get user => _user;
   String? get description => _description;
   String? get createdAt => _createdAt;
@@ -103,9 +104,11 @@ class Results {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
+    if (_video != null) {
+      map['video'] = _video?.toJson();
+    }
     map['_id'] = _id;
     map['title'] = _title;
-    map['url'] = _url;
     if (_user != null) {
       map['user'] = _user?.toJson();
     }
@@ -119,7 +122,7 @@ class Results {
 }
 
 /// profileImage : {"url":"https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg","id":"VoiceVerse%20defaults/user/userDefaultProfile"}
-/// _id : "65f5a9e580c94a9263a4fc31"
+/// _id : "6633b1bdd1f752c1fe0b3360"
 /// userName : "fatmaamr"
 
 class User {
@@ -169,6 +172,36 @@ class ProfileImage {
 }
 
   ProfileImage.fromJson(dynamic json) {
+    _url = json['url'];
+    _id = json['id'];
+  }
+  String? _url;
+  String? _id;
+
+  String? get url => _url;
+  String? get id => _id;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['url'] = _url;
+    map['id'] = _id;
+    return map;
+  }
+
+}
+
+/// url : "https://res.cloudinary.com/dc4zgmrmf/video/upload/v1714773695/VoiceVerse/videos/6633b1bdd1f752c1fe0b3360/bdjcmwe0dsvrormrfop0.mp4"
+/// id : "VoiceVerse/videos/6633b1bdd1f752c1fe0b3360/bdjcmwe0dsvrormrfop0"
+
+class Video {
+  Video({
+      String? url, 
+      String? id,}){
+    _url = url;
+    _id = id;
+}
+
+  Video.fromJson(dynamic json) {
     _url = json['url'];
     _id = json['id'];
   }

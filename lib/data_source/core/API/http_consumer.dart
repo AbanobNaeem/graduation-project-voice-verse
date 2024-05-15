@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class HttpConsumer {
   Future<http.Response> post ({
-    required Map<String, dynamic> data ,
+    Map<String, dynamic>? data ,
     required String baseUrl,
     required Map<String, String>? headers
   })async{
