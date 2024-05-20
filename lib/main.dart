@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/data_source/core/API/end_points.dart';
+import 'package:voice_verse/home_screen/screen/home_screen.dart';
+import 'package:voice_verse/navigation_bar/navigation_bar.dart';
 import 'package:voice_verse/splash_screen.dart';
 import 'data_source/local/preference_utils.dart';
 
@@ -35,7 +37,9 @@ class MyApp extends StatelessWidget {
                 hoverColor: Colors.transparent,
                 scaffoldBackgroundColor: backGroundColorDark,
                 textTheme: GoogleFonts.ralewayTextTheme()),
-            home: SplashScreen()),
+            home:  SplashScreen()
+
+        ),
       );
     }
 

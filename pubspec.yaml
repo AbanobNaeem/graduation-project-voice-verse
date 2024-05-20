@@ -51,6 +51,9 @@ dependencies:
   video_thumbnail: ^0.5.3
   flutter_screenutil: ^5.9.0
   font_awesome_flutter: ^10.7.0
+  flutter_sound: ^9.4.11
+  permission_handler: ^11.3.1
+  http_parser: ^4.0.2
 
 
 dev_dependencies:

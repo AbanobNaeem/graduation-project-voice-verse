@@ -22,7 +22,6 @@ class EmptyStateMessage extends StatelessWidget {
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(
             imagePath,
@@ -35,7 +34,7 @@ class EmptyStateMessage extends StatelessWidget {
             style:  TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w600,
-              fontSize: 30.sp,
+              fontSize: 20.sp,
             ),
           ),
           SizedBox(height: 5.h,),
@@ -46,7 +45,7 @@ class EmptyStateMessage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white60,
-                fontSize: 18.sp,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500
               ),
             ),

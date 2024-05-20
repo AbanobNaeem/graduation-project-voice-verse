@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animated_loadingkit/flutter_animated_loadingkit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:video_player/video_player.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
+import 'package:voice_verse/common/app_component/video_player_widget.dart';
 
 class VideoPlayerScreen extends StatelessWidget {
   final String videoUrl;
   final String titleOfVideo ;
-  const VideoPlayerScreen({Key? key, required this.videoUrl, required this.titleOfVideo}) : super(key: key);
+  const VideoPlayerScreen({
+    Key? key,
+    required this.videoUrl,
+    required this.titleOfVideo }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,52 +50,5 @@ class VideoPlayerScreen extends StatelessWidget {
     );
   }
 }
-class VideoPlayerWidget extends StatefulWidget {
-  final String videoUrl;
 
-  const VideoPlayerWidget({Key? key, required this.videoUrl}) : super(key: key);
-
-  @override
-  _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
-}
-
-class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
-  late VideoPlayerController _videoPlayerController;
-  bool _isInitializing = true; // Track the initialization state
-
-  @override
-  void initState() {
-    super.initState();
-    _initializeVideoPlayer();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _videoPlayerController.dispose();
-  }
-
-  Future<void> _initializeVideoPlayer() async {
-    try {
-      _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
-      await _videoPlayerController.initialize();
-      setState(() {
-        _isInitializing = false;
-      });
-      _videoPlayerController.play(); // Start playing the video after initialization
-    } catch (error) {
-      print('Error initializing video player: $error');
-      // Handle initialization error
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _isInitializing ?
-    const AnimatedLoadingWavingLine(color: primaryColorDark,)
-        : AspectRatio(
-              aspectRatio: _videoPlayerController.value.aspectRatio,
-              child: VideoPlayer(_videoPlayerController),);
-  }
-}
 

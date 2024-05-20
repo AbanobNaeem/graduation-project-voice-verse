@@ -31,7 +31,7 @@ class AiModelButton extends StatelessWidget {
               color: primaryColorDark.withOpacity(0.8),
               spreadRadius: 2,
               blurRadius: 6,
-              offset: Offset(0, 1), // changes position of shadow
+              offset: const Offset(0, 1), // changes position of shadow
             ),
           ],
         ),

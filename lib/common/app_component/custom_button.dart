@@ -56,7 +56,7 @@ class CustomButton extends StatelessWidget {
             text!,
             style: TextStyle(
               color: textColor,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w600,
               fontSize: 19.sp,
             ),
           ) : const AnimatedLoadingWavingLine(color: Colors.white,),

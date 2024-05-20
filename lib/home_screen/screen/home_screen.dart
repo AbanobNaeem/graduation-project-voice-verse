@@ -241,15 +241,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ? Center(
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.6),
+                      color: Colors.black.withOpacity(0.5),
                       shape: BoxShape.circle),
                   child: IconButton(
                     iconSize: 35.sp,
                     icon: Icon(
                       controller.value.isPlaying
-                          ? Icons.pause
-                          : Icons.play_arrow,
-                      color: Colors.white60,
+                          ? Icons.pause_rounded
+                          : Icons.play_arrow_rounded,
+                      color: Colors.white30,
                     ),
                     onPressed: () {
                       if (controller.value.isPlaying) {

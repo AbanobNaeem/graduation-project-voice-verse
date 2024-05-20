@@ -172,12 +172,9 @@ class _UploadVideoState extends State<UploadVideo> {
                                     title: titleController.text
                                 );
                               } else {
-                                // Show error message to the user
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Please provide a valid .mp4 video URL'),
-                                  ),
-                                );
+                                CustomSnackBar.showError(context,
+                                    message: "Please provide a valid .mp4 video URL",
+                                    title: "oops!");
                               }
                             }
                           }

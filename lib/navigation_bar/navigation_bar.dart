@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/custom_button.dart';
-import 'package:voice_verse/user_projects.dart';
 import 'package:voice_verse/home_screen/screen/home_screen.dart';
-import 'package:voice_verse/models/user_data_model.dart';
 import 'package:voice_verse/user_profile/screen/user_profile_screen.dart';
+import 'package:voice_verse/user_project/result_first_screen/user_projects.dart';
 import 'package:voice_verse/voice_verse_ai_feature/ai_options.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {

@@ -7,9 +7,9 @@ import 'package:voice_verse/data_source/local/preference_utils.dart';
 import 'package:voice_verse/models/user_data_model.dart';
 import 'package:voice_verse/shared/navigation.dart';
 import 'package:voice_verse/user_profile/cubit/user_profile_cubit.dart';
-import 'package:voice_verse/voice_verse_ai_feature/avatar_ai_model.dart';
-import 'package:voice_verse/voice_verse_ai_feature/cloning_ai_model.dart';
-import 'package:voice_verse/voice_verse_ai_feature/dubbing_ai_model.dart';
+import 'package:voice_verse/voice_verse_ai_feature/avatar/screen/avatar_ai_model.dart';
+import 'package:voice_verse/voice_verse_ai_feature/cloning/screen/cloning_ai_model.dart';
+import 'package:voice_verse/voice_verse_ai_feature/dubbing/screen/dubbing_ai_model.dart';
 import '../common/app_colors/colors.dart';
 
 class AiOptions extends StatefulWidget {
@@ -107,13 +107,7 @@ class _AiOptionsState extends State<AiOptions> {
                     text: "Cloning",
                     onTap: () {
                       Navigator.pop(context);
-                      showModalBottomSheet<dynamic>(
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const CloningAiModel();
-                        },
-                      );
+                      navigatTo(context, screen: const CreateCloningScreen());
                     }),
                 SizedBox(height: 20.h,),
                 AiModelButton(
@@ -121,7 +115,7 @@ class _AiOptionsState extends State<AiOptions> {
                     text: "Dubbing",
                     onTap: () {
                       Navigator.pop(context);
-                      navigatTo(context, screen: const DubbingAiModel());
+                      navigatTo(context, screen: const CreateDubbingScreen());
                     }),
               ],
             ),

@@ -79,7 +79,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             cacheUserData(state.user);
             return buildContent(state.user);
           } else {
-            return const Center(child: Text('Failed to load data'));
+            return const Center(child: AnimatedLoadingWavingLine(color: primaryColorDark,));
           }
         },
       ),
@@ -203,7 +203,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             text: "Log out"),
                         SizedBox(height: 10.h),
                         CustomButton(
-
                             outLine: true,
                             outlineColor: secondColorDark,
                             textColor: Colors.red.shade900,

@@ -11,9 +11,11 @@ import 'package:share_plus/share_plus.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/empty_state_message.dart';
+import 'package:voice_verse/common/app_component/list_of_videos.dart';
 import 'package:voice_verse/favorite_screen/cubit/favorite_cubit.dart';
 import 'package:voice_verse/home_screen/cubit/home_screen_cubit.dart';
 import 'package:voice_verse/models/favorite_list.dart';
+import 'package:voice_verse/shared/snack_bar.dart';
 import 'package:voice_verse/video_player_screen.dart';
 
 class FavoriteScreen extends StatefulWidget {
@@ -27,7 +29,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   final cubit1 = FavoriteCubit();
   final cubit2 = HomeScreenCubit();
   double? _progress;
-  FavoriteList? favoriteList ;
+  FavoriteList? favoriteList;
+
   @override
   void initState() {
     super.initState();
@@ -51,7 +54,9 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             favoriteList = state.favoriteList;
           }
           if (state is GetFavoritesFailure) {
-            print(state.errorMessage);
+            CustomSnackBar.showError(context,
+                message: state.errorMessage,
+                title: "An error!!");
           }
         },
         builder: (context, state) {
@@ -94,254 +99,74 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                   : favoriteList?.results?.videos?.isNotEmpty ?? false
                       ? SafeArea(
                           child: ListView.builder(
-                            itemCount: favoriteList?.results?.videos?.length ?? 0,
-                            itemBuilder: (BuildContext context, int index) {
-                              return FutureBuilder<Uint8List?>(
-                                future: VideoThumbnail.thumbnailData(
-                                  video: favoriteList?.results!.videos![index].id!.video!.url ?? "",
-                                  // Provide a default value for the video URL
-                                  imageFormat: ImageFormat.JPEG,
-                                  maxWidth: 100,
-                                  quality: 100,
-                                  timeMs:
-                                      1000, // Time in milliseconds for the second frame
-                                ).then((value) => value ?? Uint8List(0)),
-                                // Convert nullable Uint8List? to non-nullable Uint8List
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                          ConnectionState.done &&
-                                      snapshot.hasData) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(10),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  VideoPlayerScreen(
-                                                videoUrl: favoriteList?.results!.videos![index].id!.video!.url ?? "",
-                                                titleOfVideo: favoriteList?.results!.videos![index].id!.title ?? ""
-                                              ),
-                                            ),
-                                          );
+                              itemCount: favoriteList?.results?.videos?.length ?? 0,
+                              itemBuilder: (BuildContext context, int index) {
+                                final video =
+                                    favoriteList?.results?.videos?[index];
+                                if (video == null) return const SizedBox();
+                                return ListOfVideos(
+                                    videoUrl: video.id?.video?.url ?? "",
+                                    title: video.id?.title ?? "",
+                                    description: video.id?.description ?? "",
+                                    createdAt: video.id?.createdAt ?? "",
+                                    onUnfavorite: (){
+                                      cubit2.removeFromFavorites(id: favoriteList!.results!.id!);
+                                      setState(() {
+                                        favoriteList!.results!.videos!.removeAt(index);
+                                      });
+                                    },
+                                    onDownload: (){
+                                      FileDownloader
+                                          .downloadFile(
+                                        url: video.id!.video!.url!.toString(),
+                                        onProgress:
+                                            (name, progress) {
+                                          setState(() {
+                                            _progress =
+                                                progress;
+                                          });
                                         },
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 2,
-                                              child: Container(
-                                                width: 30.w,
-                                                height: 100.h,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
-                                                  image: DecorationImage(
-                                                    image: MemoryImage(
-                                                        snapshot.data!),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(width: 10.w),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    favoriteList?.results?.videos?[index].id?.title ?? '',
-                                                    // Provide a default value for the title
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 18.sp,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    favoriteList?.results?.videos?[index].id?.description ?? '',
-                                                    // Provide a default value for the description
-                                                    style: TextStyle(
-                                                      color: Colors.white70,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 16.sp,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    favoriteList
-                                                            ?.results
-                                                            ?.videos?[index]
-                                                            .id
-                                                            ?.createdAt ??
-                                                        '',
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow.clip,
-                                                    style: TextStyle(
-                                                      color: Colors.white70,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                      fontSize: 15.5.sp,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const Spacer(),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: PopupMenuButton(
-                                                color: Colors.white.withOpacity(0.7),
-                                                itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                                                  PopupMenuItem(
-                                                    onTap: () {
-                                                      cubit2.removeFromFavorites(id: favoriteList!.results!.id!,);
-                                                      setState(() {
-                                                        favoriteList!.results!.videos!.removeAt(index);
-                                                      });
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.favorite_rounded,
-                                                          color: Colors.black,
-                                                          size: 19.sp,
-                                                        ),
-                                                        SizedBox(width: 5.w),
-                                                        // Adjust the width as needed
-                                                        Text(
-                                                          "Unfavorite ",
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16.sp,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    value: 'un favorite ',
-                                                  ),
-                                                  PopupMenuItem(
-                                                    value: 'download',
-                                                    onTap: () {
-                                                      FileDownloader
-                                                          .downloadFile(
-                                                        url: favoriteList!.results!.videos![index].id!.video!.url!.toString(),
-                                                        onProgress:
-                                                            (name, progress) {
-                                                          setState(() {
-                                                            _progress =
-                                                                progress;
-                                                          });
-                                                        },
-                                                        onDownloadCompleted:
-                                                            (value) {
-                                                          setState(() {
-                                                            _progress = null;
-                                                          });
-                                                        },
-                                                      );
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        const Icon(
-                                                          Icons
-                                                              .download_rounded,
-                                                          color: Colors.black,
-                                                        ),
-                                                        SizedBox(width: 2.w),
-                                                        // Adjust the width as needed
-                                                        Text(
-                                                          "Download",
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16.sp,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  PopupMenuItem(
-                                                    onTap: () async {
-                                                      // Get the video URL from your API response
-                                                      final videoUrl =favoriteList!.results!.videos![index].id!.video!.url!.toString();
-                                                      if (videoUrl.isNotEmpty) {
-                                                        await Share.share(
-                                                            videoUrl);
-                                                      } else {
-                                                        // Handle case where URL is empty
-                                                        print(
-                                                            'Empty video URL');
-                                                      }
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Icon(
-                                                          Icons.share_rounded,
-                                                          color: Colors.black,
-                                                          size: 19.sp,
-                                                        ),
-                                                        SizedBox(width: 5.w),
-                                                        // Adjust the width as needed
-                                                        Text(
-                                                          "share",
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16.sp,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    value: 'share',
-                                                  ),
-                                                ],
-                                                icon: Icon(
-                                                  Icons.more_horiz_rounded,
-                                                  color: Colors.white60,
-                                                  size: 25.sp,
-                                                ),
-                                                offset: const Offset(0,
-                                                    0), // Adjust the offset as needed
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  } else {
-                                    return const SizedBox();
-                                  }
-                                },
-                              );
-                            },
-                          ),
+                                        onDownloadCompleted:
+                                            (value) {
+                                          setState(() {
+                                            _progress = null;
+                                          });
+                                        },
+                                      );
+                                    },
+                                    onShare: ()async{
+                                      final videoUrl =video.id!.video!.url!.toString();
+                                      if (videoUrl.isNotEmpty) {
+                                        await Share.share(
+                                            videoUrl);
+                                      } else {
+                                        // Handle case where URL is empty
+                                        print(
+                                            'Empty video URL');
+                                      }
+                                    }
+                                );
+                              }),
                         )
                       : Padding(
                           padding: EdgeInsets.only(bottom: 50.h),
                           child: EmptyStateMessage(
-                              imagePath: "images/icons/broken-heart.png",
-                              mainText: "No favorites yet!",
-                              subText: "Like a recipe you see? save them here to your favourites.",
-                              scale: 3,
-                              color:  Colors.white30,
+                            imagePath: "images/icons/broken-heart.png",
+                            mainText: "No favorites yet!",
+                            subText:
+                                "Like a recipe you see? save them here to your favourites.",
+                            scale: 3,
+                            color: Colors.white30,
                           ),
                         ),
             );
-          }
-          else {
+          } else {
             return const SizedBox();
           }
         },
       ),
     );
   }
-
 }
+
+

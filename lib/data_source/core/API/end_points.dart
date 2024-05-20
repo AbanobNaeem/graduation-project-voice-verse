@@ -1,5 +1,5 @@
 class EndPoint {
-  static const  String _baseUrl = "https://voice-verse-livid.vercel.app/";
+  static const  String _baseUrl = "http://ec2-51-20-141-173.eu-north-1.compute.amazonaws.com/";
   static String login = "${_baseUrl}auth/login";
   static String register = "${_baseUrl}auth/register";
   static String logOut  = "${_baseUrl}auth/logout" ;
@@ -17,6 +17,12 @@ class EndPoint {
   static String getFavoriteList = "${_baseUrl}video/favorites/" ;
   static String uploadVideo = "${_baseUrl}video/new" ;
   static String getUploadedVideos = "${_baseUrl}video/user";
+  static String aiDubbing = "${_baseUrl}video/dubbing";
+  static String aiCloning  = "${_baseUrl}video/soundCloning";
+  static String getDubbingOutPut = "${_baseUrl}video/dubbing/data";
+  static String getCloningOutPut  = "${_baseUrl}video/soundCloning/data";
+
+
 }
 
 class ApiKey {
