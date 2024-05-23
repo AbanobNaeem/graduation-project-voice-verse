@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_loadingkit/flutter_animated_loadingkit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +6,6 @@ import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/common/app_component/audio_item.dart';
 import 'package:voice_verse/common/app_component/empty_state_message.dart';
 import 'package:voice_verse/models/cloning_model.dart';
-import 'package:voice_verse/shared/snack_bar.dart';
 import 'package:voice_verse/user_project/cloning_result/cubit/cloning_cubit.dart';
 
 class CloningResult extends StatefulWidget {
@@ -39,7 +37,7 @@ class _CloningResultState extends State<CloningResult> {
               cloningModel = state.cloningModel;
             });
           }
-          if (state is GetCloningOutPutFailureState && state.errorMessage != null) {
+          if (state is GetCloningOutPutFailureState) {
             print('error');
           }
         },
@@ -70,7 +68,7 @@ class _CloningResultState extends State<CloningResult> {
               )
                   : Padding(
                 padding: EdgeInsets.only(bottom: 20.h),
-                child: EmptyStateMessage(
+                child: const EmptyStateMessage(
                   imagePath: "images/icons/audio.png",
                   mainText: "No cloning audio yet!",
                   subText:
@@ -81,7 +79,7 @@ class _CloningResultState extends State<CloningResult> {
               ),
             );
           } else if (state is GetCloningOutPutFailureState) {
-            return Scaffold(
+            return const Scaffold(
               backgroundColor: Colors.transparent,
               body: EmptyStateMessage(
                 imagePath: "images/icons/audio.png",

@@ -18,6 +18,13 @@ class GetFavoritesFailure extends FavoritesStates{
 
 class GetFavoritesLoading extends FavoritesStates {}
 
+class RemoveFromFavoriteSuccess extends FavoritesStates {}
+
+class RemoveFromFavoriteFailure extends FavoritesStates {
+  final String errorMessage;
+  RemoveFromFavoriteFailure(this.errorMessage);
+}
+
 
 
 

@@ -7,9 +7,9 @@ class VideoPlayerScreen extends StatelessWidget {
   final String videoUrl;
   final String titleOfVideo ;
   const VideoPlayerScreen({
-    Key? key,
+    super.key,
     required this.videoUrl,
-    required this.titleOfVideo }) : super(key: key);
+    required this.titleOfVideo });
 
   @override
   Widget build(BuildContext context) {

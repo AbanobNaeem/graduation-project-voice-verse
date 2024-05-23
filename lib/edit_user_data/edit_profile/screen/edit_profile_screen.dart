@@ -18,11 +18,11 @@ class EditProfileScreen extends StatefulWidget {
   final String userEmail;
 
   const EditProfileScreen({
-    Key? key,
+    super.key,
     required this.userName,
     required this.userImage,
     required this.userEmail,
-  }) : super(key: key);
+  });
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -50,7 +50,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           }
           if (state is UserProfileUploadSuccess) {
             navigatTo(context,
-                screen: BottomNavigationBarWidget(
+                screen: const BottomNavigationBarWidget(
                   dataUpdated: true,
                   screenIndex: 2,
                 ));

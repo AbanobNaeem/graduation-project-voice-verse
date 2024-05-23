@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +10,8 @@ import 'package:voice_verse/user_authentication/login/screen/login_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -36,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       final token = PreferenceUtils.instance.getString(ApiKey.token) ;
       if( token != null){
         navigatAndReplace(context,
-            screen: BottomNavigationBarWidget());
+            screen: const BottomNavigationBarWidget());
       }
       else{
         navigatAndReplace(context,

@@ -10,8 +10,8 @@ class CustomUploadButton extends StatelessWidget {
     required this.onTap,
     required this.icon,
     required this.title,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

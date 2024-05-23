@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animated_loadingkit/flutter_animated_loadingkit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_file_downloader/flutter_file_downloader.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -341,40 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 );
                               },
                             ),
-                            SizedBox(height: 20.h),
-                            _progress != null
-                                ? Padding(
-                              padding: EdgeInsets.only(
-                                  top: 10.h, bottom: 15.h),
-                              child: SizedBox(
-                                  width: 30.w,
-                                  height: 25.h,
-                                  child: const CircularProgressIndicator(
-                                    color: Colors.white,
-                                  )),
-                            )
-                                : IconButton(
-                              onPressed: () {
-                                FileDownloader.downloadFile(
-                                    url: videoData!.results![index].video!.url!,
-                                    onProgress: (name, progress) {
-                                      setState(() {
-                                        _progress = progress;
-                                      });
-                                    },
-                                    onDownloadCompleted: (value) {
-                                      setState(() {
-                                        _progress = null;
-                                      });
-                                    });
-                              },
-                              icon: const Icon(
-                                Icons.download_rounded,
-                                color: Colors.white,
-                              ),
-                              iconSize: 40.sp,
-                            ),
-                            SizedBox(height: 5.h),
+                            SizedBox(height: 25.h),
                             IconButton(
                               onPressed: () async {
                                 // Get the video URL from your API response

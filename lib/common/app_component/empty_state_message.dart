@@ -8,7 +8,7 @@ class EmptyStateMessage extends StatelessWidget {
   final  double scale ;
   final Color? color ;
 
-  EmptyStateMessage({
+  const EmptyStateMessage({super.key, 
     required this.imagePath,
     required this.mainText,
     required this.subText,
@@ -18,7 +18,7 @@ class EmptyStateMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -34,7 +34,7 @@ class EmptyStateMessage extends StatelessWidget {
             style:  TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w600,
-              fontSize: 20.sp,
+              fontSize: 25.sp,
             ),
           ),
           SizedBox(height: 5.h,),

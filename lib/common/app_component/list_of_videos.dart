@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
-import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/video_player_screen.dart';
 
 class ListOfVideos extends StatelessWidget {
@@ -10,20 +9,15 @@ class ListOfVideos extends StatelessWidget {
   final String title;
   final String description;
   final String createdAt;
-  final Function()? onUnfavorite;
-  final Function() onDownload;
-  final Function() onShare;
+
 
   const ListOfVideos({
-    Key? key,
+    super.key,
     required this.videoUrl,
     required this.title,
     required this.description,
     required this.createdAt,
-    this.onUnfavorite,
-    required this.onDownload,
-    required this.onShare,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +48,7 @@ class ListOfVideos extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: Container(
                       width: 110.w,
                       height: 100.h,
@@ -102,86 +96,7 @@ class ListOfVideos extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: PopupMenuButton(
-                      color: Colors.white.withOpacity(0.7),
-                      itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                        PopupMenuItem(
-                          onTap: onUnfavorite,
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.favorite_rounded,
-                                color: Colors.black,
-                                size: 19,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                "Unfavorite",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            ],
-                          ),
-                          value: 'unfavorite',
-                        ),
-                        PopupMenuItem(
-                          value: 'download',
-                          onTap: onDownload,
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.download_rounded,
-                                color: Colors.black,
-                              ),
-                              SizedBox(width: 2),
-                              Text(
-                                "Download",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        PopupMenuItem(
-                          onTap: onShare,
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.share_rounded,
-                                color: Colors.black,
-                                size: 19,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                "Share",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            ],
-                          ),
-                          value: 'share',
-                        ),
-                      ],
-                      icon: const Icon(
-                        Icons.more_horiz_rounded,
-                        color: Colors.white60,
-                        size: 25,
-                      ),
-                      offset: const Offset(0, 0),
-                    ),
-                  )
+
                 ],
               ),
             ),

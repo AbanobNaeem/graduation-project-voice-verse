@@ -8,11 +8,11 @@ class AiModelButton extends StatelessWidget {
   final GestureTapCallback onTap;
 
   const AiModelButton({
-    Key? key,
+    super.key,
     required this.iconData,
     required this.text,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

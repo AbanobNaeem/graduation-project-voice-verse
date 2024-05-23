@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 import 'package:voice_verse/user_project/avatar_result/screen/avatar_result.dart';
@@ -228,9 +226,6 @@ class _UserProjectsState extends State<UserProjects> {
                       ),
                     ],
                   ),
-                ),
-                SizedBox(
-                  height: 15.h,
                 ),
                 Expanded(
                   child: selectedOption == 'dubbing'

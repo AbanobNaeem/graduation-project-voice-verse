@@ -4,13 +4,13 @@ import 'package:voice_verse/common/app_colors/colors.dart';
 
 class PlanItem extends StatelessWidget {
   const PlanItem({
-    Key? key,
+    super.key,
     required this.planName,
     required this.planPrice,
     required this.totalPrice,
     required this.check,
     required this.outlineColor
-  }) : super(key: key);
+  });
 
   final String planName;
   final String planPrice;

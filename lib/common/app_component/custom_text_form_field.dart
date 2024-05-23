@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
 
@@ -18,7 +16,7 @@ class CustomTextFormField extends StatelessWidget {
 
 
   const CustomTextFormField({
-    Key? key,
+    super.key,
     required this.label,
     required this.hintText,
     this.obscureText = false,
@@ -29,7 +27,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.validator,
     this.maxLine = 1,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

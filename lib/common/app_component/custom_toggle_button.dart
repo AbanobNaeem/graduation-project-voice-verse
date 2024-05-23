@@ -13,7 +13,7 @@ class CustomTextAndButton extends StatelessWidget {
   final String? buttonTitle;
 
   const CustomTextAndButton(
-      {required this.onPressed,
+      {super.key, required this.onPressed,
       this.moveToLogin = false,
       this.isTitle = false,
       this.message,

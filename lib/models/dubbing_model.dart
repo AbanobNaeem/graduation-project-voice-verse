@@ -4,6 +4,7 @@
 /// createdAt : "2024-05-20T10:51:25.815Z"
 /// updatedAt : "2024-05-20T10:51:25.815Z"
 /// __v : 0
+library;
 
 class DubbingModel {
   DubbingModel({

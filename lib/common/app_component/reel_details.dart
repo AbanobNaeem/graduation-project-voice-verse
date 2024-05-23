@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReelDetails extends StatelessWidget {
-  ReelDetails({
-    Key? key,
+  const ReelDetails({
+    super.key,
     required this.userImage,
     required this.userName,
     required this.description
-  }) : super(key: key);
+  });
   final String userImage;
   final String userName;
 
@@ -37,7 +37,7 @@ class ReelDetails extends StatelessWidget {
               radius: 15.sp,
               backgroundImage :userImage.isNotEmpty ?
               NetworkImage(userImage) :
-              NetworkImage("https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg")
+              const NetworkImage("https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710460050/VoiceVerse%20defaults/user/WhatsApp_Image_2024-03-11_at_19.05.02_iowoqo.jpg")
         )
     ),
     Padding(

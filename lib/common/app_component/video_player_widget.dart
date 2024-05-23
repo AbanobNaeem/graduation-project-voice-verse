@@ -6,7 +6,7 @@ import 'package:voice_verse/common/app_colors/colors.dart';
 class VideoPlayerWidget extends StatefulWidget {
   final String videoUrl;
 
-  const VideoPlayerWidget({Key? key, required this.videoUrl}) : super(key: key);
+  const VideoPlayerWidget({super.key, required this.videoUrl});
 
   @override
   _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
@@ -55,7 +55,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   Widget build(BuildContext context) {
     return _isInitializing
-        ? Center(child: const AnimatedLoadingWavingLine(color: primaryColorDark))
+        ? const Center(child: AnimatedLoadingWavingLine(color: primaryColorDark))
         : GestureDetector(
       onTap: _togglePlayPause,
       child: Stack(

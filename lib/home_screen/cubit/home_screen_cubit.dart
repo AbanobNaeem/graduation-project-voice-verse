@@ -39,7 +39,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
             "token":"@V*ice_Verse$token"
           },
       );
-      print("response==================>"+response.body.toString());
+      print("response==================>${response.body}");
       if (response.statusCode == 200) {
         emit(AddToFavoriteSuccessState());
       }
@@ -49,7 +49,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
       }
     }catch(e){
       emit(AddTOFavoriteFailureState(e.toString()));
-      print('${e.toString()}');
+      print(e.toString());
     }
   }
 

@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_sound/flutter_sound.dart';
-import 'package:flutter_sound/public/flutter_sound_recorder.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
@@ -182,7 +179,7 @@ class _CreateCloningScreenState extends State<CreateCloningScreen> {
                                 },
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.next,
-                                label: "Text",
+                                label: "Text To Speech",
                                 hintText: "Enter Your Text",
                                 controller: userTextController,
                               ),
@@ -230,7 +227,7 @@ class _CreateCloningScreenState extends State<CreateCloningScreen> {
                                       title: videoTitleController.text,
                                       audioFile: File(_filePath!),
                                     );
-                                    print(_filePath);
+
                                   } else {
                                     CustomSnackBar.showError(context,
                                         message:

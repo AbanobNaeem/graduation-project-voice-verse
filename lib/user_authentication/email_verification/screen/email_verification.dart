@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
@@ -11,14 +10,13 @@ import 'package:voice_verse/common/app_component/custom_toggle_button.dart';
 import 'package:voice_verse/shared/navigation.dart';
 import 'package:voice_verse/shared/snack_bar.dart';
 import 'package:voice_verse/user_authentication/email_verification/cubit/email_verification_cubit.dart';
-import 'package:voice_verse/user_authentication/forget_password/cubit/forget_password_cubit.dart';
 import 'package:voice_verse/user_authentication/reset_password/screen/reset_password.dart';
 
 class EmailVerification extends StatefulWidget {
-  EmailVerification({
-    Key? key,
+  const EmailVerification({
+    super.key,
     required this.email,
-  }) : super(key: key);
+  });
 
   final String email;
 

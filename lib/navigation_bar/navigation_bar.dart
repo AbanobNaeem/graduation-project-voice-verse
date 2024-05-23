@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
@@ -9,11 +8,11 @@ import 'package:voice_verse/user_project/result_first_screen/user_projects.dart'
 import 'package:voice_verse/voice_verse_ai_feature/ai_options.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
-  BottomNavigationBarWidget({
-    Key? key,
+  const BottomNavigationBarWidget({
+    super.key,
     this.screenIndex = 1,
     this.dataUpdated = false,
-  }) : super(key: key);
+  });
 
   final bool? dataUpdated;
   final int? screenIndex;
@@ -83,7 +82,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
                     isScrollControlled: true,
                     context: context,
                     builder: (BuildContext context) {
-                      return AiOptions();
+                      return const AiOptions();
                     },
                   );
                 },

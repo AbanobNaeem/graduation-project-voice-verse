@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
@@ -16,7 +14,7 @@ import 'package:voice_verse/user_authentication/login/cubit/login_cubit.dart';
 import 'package:voice_verse/user_authentication/register/screen/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -46,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: BlocListener<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
-            navigatAndReplace(context, screen: BottomNavigationBarWidget());
+            navigatAndReplace(context, screen: const BottomNavigationBarWidget());
           } else if (state is LoginFailureState) {
             CustomSnackBar.showError(context,
                 message: state.errorMessage, title: "Login Failed");
@@ -158,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextButton(
                         onPressed: () {
-                          navigatTo(context, screen: ForgetPassword());
+                          navigatTo(context, screen: const ForgetPassword());
                         },
                         child: Text(
                           "Forget your password!",
@@ -195,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       CustomTextAndButton(
                         moveToLogin: false,
                         onPressed: () {
-                          navigatTo(context, screen: RegisterScreen());
+                          navigatTo(context, screen: const RegisterScreen());
                         },
                       ),
                     ],

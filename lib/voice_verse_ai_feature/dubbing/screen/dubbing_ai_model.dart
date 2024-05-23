@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -99,6 +98,7 @@ class _CreateDubbingScreenState extends State<CreateDubbingScreen> {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter a URL';
                                   }
+                                  return null;
                                   // Basic URL validation
                                   // final urlPattern = r'^(https?:\/\/)?((www\.)?youtube\.com|youtu\.?be|vimeo\.com)\/.+$';
                                   // final result = RegExp(urlPattern, caseSensitive: false).hasMatch(value);

@@ -1,5 +1,6 @@
 /// success : true
 /// result : {"profileImage":{"url":"https://res.cloudinary.com/dc4zgmrmf/image/upload/v1710882845/VoiceVerse/ProfilePics/65f306b4c00532ac5b4ee304/xEkvNZSJRC8Wj6mJ7gIKA/kjazy9m89yfbavhmq503.jpg","id":"VoiceVerse/ProfilePics/65f306b4c00532ac5b4ee304/xEkvNZSJRC8Wj6mJ7gIKA/kjazy9m89yfbavhmq503"},"_id":"65f306b4c00532ac5b4ee304","userName":"Abanob naeem ","email":"abanobnaeem80@gmail.com","password":"$2a$08$anqnHX6tvupxvUti4JOEjuaRnCvXCLI1MS8GZRONj40k.iY9.NoMK","isConfirmed":true,"createdAt":"2024-03-14T14:16:20.290Z","updatedAt":"2024-03-22T21:05:24.397Z","__v":0,"accountStatus":"Free","forgetCode":"31797"}
+library;
 
 class UserDataModel {
   UserDataModel({

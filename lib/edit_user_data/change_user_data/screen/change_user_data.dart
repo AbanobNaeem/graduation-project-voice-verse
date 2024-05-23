@@ -11,7 +11,7 @@ import 'package:voice_verse/shared/navigation.dart';
 import 'package:voice_verse/shared/snack_bar.dart';
 
 class ChangeUserDate extends StatefulWidget {
-  ChangeUserDate({super.key,
+  const ChangeUserDate({super.key,
     required this.isPassword,
     required this.userName ,
   });
@@ -77,7 +77,7 @@ class _ChangeUserDateState extends State<ChangeUserDate> {
           }
           if (state is ChangeNameSuccessState){
             navigatTo(context,
-                screen: BottomNavigationBarWidget(dataUpdated: true,screenIndex: 2,));
+                screen: const BottomNavigationBarWidget(dataUpdated: true,screenIndex: 2,));
           }
           if(state is ChangePasswordFailureState){
             CustomSnackBar.showError(context,

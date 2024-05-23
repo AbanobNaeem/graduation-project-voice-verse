@@ -38,9 +38,9 @@ class _DubbingResultState extends State<DubbingResult> {
               dubbingModel = state.dubbingModel;
             });
           }
-          if (state is GetDubbingOutPutFailureState && state.errorMessage != null) {
+          if (state is GetDubbingOutPutFailureState) {
             CustomSnackBar.showError(context,
-                message: state.errorMessage!,
+                message: state.errorMessage,
                 title: "An error!!");
           }
         },
@@ -71,7 +71,7 @@ class _DubbingResultState extends State<DubbingResult> {
               )
                   : Padding(
                 padding: EdgeInsets.only(bottom: 20.h),
-                child: EmptyStateMessage(
+                child: const EmptyStateMessage(
                   imagePath: "images/icons/audio.png",
                   mainText: "No dubbing audio yet!",
                   subText:
@@ -86,7 +86,7 @@ class _DubbingResultState extends State<DubbingResult> {
               backgroundColor: Colors.transparent,
               body: Padding(
                 padding: EdgeInsets.only(bottom: 20.h),
-                child: EmptyStateMessage(
+                child: const EmptyStateMessage(
                   imagePath: "images/icons/audio.png",
                   mainText: "No dubbing audio yet!",
                   subText: "Hit the button below to add your first projects and see some magic",

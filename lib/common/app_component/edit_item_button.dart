@@ -8,11 +8,11 @@ class EditUserDataButton extends StatelessWidget {
   final IconData icon ;
 
   const EditUserDataButton({
-    Key? key,
+    super.key,
     required this.title,
     required this.onTap,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

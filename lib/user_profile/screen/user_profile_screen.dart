@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animated_loadingkit/flutter_animated_loadingkit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +18,7 @@ import 'package:voice_verse/user_authentication/login/screen/login_screen.dart';
 import 'package:voice_verse/user_profile/cubit/user_profile_cubit.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  UserProfileScreen({Key? key, required this.dataUpdated});
+  UserProfileScreen({super.key, required this.dataUpdated});
 
   bool dataUpdated;
 
@@ -172,7 +170,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         EditUserDataButton(
                             title: "Uploaded videos",
                             onTap: () {
-                              navigatTo(context, screen: UploadedVideosScreen());
+                              navigatTo(context, screen: const UploadedVideosScreen());
 
                             },
                             icon: Icons.video_library_rounded),

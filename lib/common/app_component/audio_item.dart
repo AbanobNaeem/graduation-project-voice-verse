@@ -22,12 +22,22 @@ class AudioItem extends StatefulWidget {
 class _AudioItemState extends State<AudioItem> {
   FlutterSoundPlayer? _audioPlayer;
   bool isPlaying = false;
+  bool isFinished = false;
 
   @override
   void initState() {
     super.initState();
     _audioPlayer = FlutterSoundPlayer();
     _audioPlayer?.openPlayer();
+    _audioPlayer?.setSubscriptionDuration(const Duration(milliseconds: 10));
+    _audioPlayer?.onProgress?.listen((event) {
+      if (event != null && event.position.inMilliseconds >= event.duration.inMilliseconds) {
+        setState(() {
+          isPlaying = false;
+          isFinished = true;
+        });
+      }
+    });
   }
 
   @override
@@ -37,11 +47,19 @@ class _AudioItemState extends State<AudioItem> {
     super.dispose();
   }
 
-  void _playPauseAudio() async {
+  Future<void> _playPauseAudio() async {
     if (isPlaying) {
       await _audioPlayer?.pausePlayer();
     } else {
-      await _audioPlayer?.startPlayer(fromURI: widget.audioUrl);
+      if (isFinished) {
+        await _audioPlayer?.stopPlayer();
+        await _audioPlayer?.startPlayer(fromURI: widget.audioUrl);
+        setState(() {
+          isFinished = false;
+        });
+      } else {
+        await _audioPlayer?.startPlayer(fromURI: widget.audioUrl);
+      }
     }
 
     setState(() {
@@ -52,7 +70,7 @@ class _AudioItemState extends State<AudioItem> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(5),
+      padding:  EdgeInsets.only(bottom: 15.h , left: 5.w ,right: 5.w),
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(

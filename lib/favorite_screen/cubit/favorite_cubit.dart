@@ -25,5 +25,29 @@ class FavoriteCubit extends Cubit<FavoritesStates> {
     }
   }
 
+  Future<void> removeFromFavoritesScreen({
+    required String id
+  }) async{
+    try{
+      final response = await httpConsumer.delete(
+        baseUrl: '${EndPoint.removeFromFavorites}$id',
+        headers:{
+          "token":"@V*ice_Verse$token"
+        },
+      );
+
+      if (response.statusCode == 200) {
+        PreferenceUtils.instance.setBool(id,false);
+        emit(RemoveFromFavoriteSuccess());
+      }
+      else {
+        emit(RemoveFromFavoriteFailure(httpConsumer.parsResponse(response)[ApiKey.errorMessage]));
+      }
+
+    }catch(e){
+      emit(RemoveFromFavoriteFailure(e.toString()));
+    }
+  }
+
 
 }

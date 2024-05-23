@@ -4,6 +4,7 @@
 /// createdAt : "2024-05-20T11:57:28.418Z"
 /// updatedAt : "2024-05-20T12:07:07.945Z"
 /// __v : 0
+library;
 
 class CloningModel {
   CloningModel({

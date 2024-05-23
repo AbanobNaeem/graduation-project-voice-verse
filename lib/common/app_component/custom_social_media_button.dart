@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:voice_verse/common/app_colors/colors.dart';
@@ -9,7 +8,7 @@ class CustomSocialButton extends StatelessWidget {
   final VoidCallback onGmailPressed;
   final bool loginMessage;
 
-  const CustomSocialButton({
+  const CustomSocialButton({super.key, 
     required this.onApplePressed,
     required this.onGmailPressed,
     this.loginMessage = true,

@@ -15,9 +15,9 @@ import '../../navigation_bar/navigation_bar.dart';
 
 class UploadVideo extends StatefulWidget {
   const UploadVideo({
-    Key? key,
+    super.key,
     required this.videoUrl,
-  }) : super(key: key);
+  });
 
   final String videoUrl;
 
@@ -55,7 +55,7 @@ class _UploadVideoState extends State<UploadVideo> {
         listener: (context, state) {
           if (state is UploadVideoSuccessState) {
             navigatAndReplace(
-                context, screen: BottomNavigationBarWidget(screenIndex: 0,));
+                context, screen: const BottomNavigationBarWidget(screenIndex: 0,));
           }
           if (state is UploadVideoFailureState) {
             CustomSnackBar.showError(context,

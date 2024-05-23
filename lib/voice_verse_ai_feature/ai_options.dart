@@ -13,7 +13,7 @@ import 'package:voice_verse/voice_verse_ai_feature/dubbing/screen/dubbing_ai_mod
 import '../common/app_colors/colors.dart';
 
 class AiOptions extends StatefulWidget {
-  AiOptions({Key? key}) : super(key: key);
+  const AiOptions({super.key});
 
   @override
   State<AiOptions> createState() => _AiOptionsState();
@@ -99,7 +99,7 @@ class _AiOptionsState extends State<AiOptions> {
                     text: "Avatar",
                     onTap: () {
                       Navigator.pop(context);
-                      navigatTo(context, screen: AvatarAiModel());
+                      navigatTo(context, screen: const AvatarAiModel());
                     }),
                 SizedBox(height: 20.h,),
                 AiModelButton(

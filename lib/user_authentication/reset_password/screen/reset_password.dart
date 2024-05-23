@@ -12,7 +12,7 @@ import '../../../common/app_colors/colors.dart';
 import '../../../common/app_component/custom_back_button.dart';
 
 class ResetPassword extends StatefulWidget {
-  ResetPassword({super.key,
+  const ResetPassword({super.key,
     required this.code
   });
   final String code ;

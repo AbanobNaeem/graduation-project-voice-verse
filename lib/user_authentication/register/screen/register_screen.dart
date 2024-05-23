@@ -12,7 +12,7 @@ import 'package:voice_verse/user_authentication/register/cubit/register_cubit.da
 
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({super.key});
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
